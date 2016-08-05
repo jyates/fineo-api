@@ -1,11 +1,11 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2016-08-05T00:24:39Z",
+    "version": "2016-08-05T01:18:49Z",
     "title": "test-spec"
   },
-  "host": "m0cgojhk1h.execute-api.us-east-1.amazonaws.com",
-  "basePath": "/prod",
+  "host": "4u21dvsre6.execute-api.us-east-1.amazonaws.com",
+  "basePath": "/test",
   "schemes": [
     "https"
   ],
@@ -58,6 +58,11 @@
         ],
         "x-amazon-apigateway-integration": {
           "credentials": "arn:aws:iam::766732214526:role/apigateway_stream-kinesis",
+          "requestTemplates": {
+            "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n#set($data = $util.base64Encode(\"$bodyJson\"))\n{\n    \"StreamName\": \"fineo-customer-ingest\",\n    \"Data\": \"$data\",\n    \"PartitionKey\": \"$orgID\"\n}"
+          },
+          "uri": "arn:aws:apigateway:us-east-1:kinesis:action/PutRecord",
+          "passthroughBehavior": "when_no_templates",
           "responses": {
             "200": {
               "statusCode": "200"
@@ -72,12 +77,7 @@
           "requestParameters": {
             "integration.request.header.Content-Type": "'application/x-amz-json-1.1'"
           },
-          "passthroughBehavior": "when_no_templates",
           "httpMethod": "POST",
-          "requestTemplates": {
-            "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n#set($data = $util.base64Encode(\"$bodyJson\"))\n{\n    \"StreamName\": \"fineo-customer-ingest\",\n    \"Data\": \"$data\",\n    \"PartitionKey\": \"$orgID\"\n}"
-          },
-          "uri": "arn:aws:apigateway:us-east-1:kinesis:action/PutRecord",
           "type": "aws"
         }
       }
@@ -101,8 +101,6 @@
       "type": "object"
     },
     "SingleStreamEvent": {
-      "$schema": "http://json-schema.org/draft-04/schema#",
-      "description": "Single event at a timestamp. Max size: 1MB",
       "type": "object",
       "required": [
         "metrictype",
@@ -111,20 +109,22 @@
       "properties": {
         "timestamp": {
           "type": "number",
-          "minimum": 31536000000,
-          "required": true
+          "minimum": 31536000000
         },
         "metrictype": {
-          "type": "string",
-          "required": true
+          "type": "string"
         },
         "additionalProperties": {
-          "type": [
-            "number",
-            "string",
-            "boolean"
-          ]
+          "type": "object",
+          "properties": {}
         }
+      },
+      "description": "Single event at a timestamp. Max size: 1MB"
+    },
+    "MultiStreamEvent":{
+      "type": "array",
+      "items":{
+        "$ref": "#/definitions/SingleStreamEvent"
       }
     },
     "Error": {
