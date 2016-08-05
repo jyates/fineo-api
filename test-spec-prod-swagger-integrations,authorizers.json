@@ -4,14 +4,17 @@
     "version": "2016-08-05T01:18:49Z",
     "title": "test-spec"
   },
-  "host": "4u21dvsre6.execute-api.us-east-1.amazonaws.com",
-  "basePath": "/test",
+  "host": "ingest.fineo.io",
+  "title": "fineo-ingest-pipeline",
   "schemes": [
     "https"
   ],
   "paths": {
     "/stream/event": {
       "put": {
+        "tags": [
+          "stream"
+        ],
         "consumes": [
           "application/json"
         ],
@@ -84,6 +87,9 @@
     },
     "/stream/events": {
       "put": {
+        "tags": [
+          "stream"
+        ],
         "consumes": [
           "application/json"
         ],
