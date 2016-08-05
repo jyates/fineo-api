@@ -1,0 +1,49 @@
+{
+  "put": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "in": "body",
+        "name": "SingleStreamEvent",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/SingleStreamEvent"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{Error_400}},
+      {{Error_500}}
+    },
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      "credentials": "arn:aws:iam::766732214526:role/apigateway_stream-kinesis",
+      "requestTemplates": {
+        "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n#set($data = $util.base64Encode(\"$bodyJson\"))\n{\n    \"StreamName\": \"fineo-customer-ingest\",\n    \"Data\": \"$data\",\n    \"PartitionKey\": \"$orgID\"\n}"
+      },
+      "uri": "arn:aws:apigateway:us-east-1:kinesis:action/PutRecord",
+      "passthroughBehavior": "never",
+      "responses": {
+        "200": {
+          "statusCode": "200"
+        },
+        "400": {
+          "statusCode": "400"
+        },
+        "500": {
+          "statusCode": "500"
+        }
+      },
+      "requestParameters": {
+        "integration.request.header.Content-Type": "'application/x-amz-json-1.1'"
+      },
+      "httpMethod": "POST",
+      "type": "aws"
+    }
+  }
+}

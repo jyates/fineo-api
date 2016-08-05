@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "required": [
+    "metrictype",
+    "timestamp"
+  ],
+  "properties": {
+    "timestamp": {
+      "type": "number",
+      "minimum": 31536000000
+    },
+    "metrictype": {
+      "type": "string"
+    },
+    "additionalProperties": {
+      "type": "object",
+      "properties": {}
+    }
+  },
+  "description": "Single event at a timestamp. Max size: 1MB"
+}

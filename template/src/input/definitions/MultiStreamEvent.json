@@ -1,0 +1,7 @@
+{
+  "description": "Up to 500 records - each record up to 1MB - up to 5MB total per request",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/SingleStreamEvent"
+  }
+}
