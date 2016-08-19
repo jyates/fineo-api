@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "required": [
+    "metricName",
+    "fieldName"
+  ],
+  "properties": {
+    "metricName": {
+      "type": "string"
+    },
+    "fieldName": {
+      "type": "string"
+    }
+  },
+  "description": "Delete a field in a metric"
+}

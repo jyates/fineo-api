@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "required": [
+    "metricName",
+    "fieldName",
+    "fieldType"
+  ],
+  "properties": {
+    "metricName": {
+      "type": "string"
+    },
+    "fieldName": {
+      "type": "string"
+    },
+    "fieldType": {
+      "type": "string",
+      "description": "Standard SQL type for the field. See documentation for valid types."
+    },
+    "aliases":{
+      "type": "array",
+      "items": "string",
+      "description" : "Write aliases for the field. E.g. T, Tmp and Temp could be aliases for a field named 'Temperature'"
+    }
+  },
+  "description": "Add a field to a metric type"
+}

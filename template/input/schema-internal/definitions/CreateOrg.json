@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": [
+    "orgId"
+  ],
+  "properties": {
+    "orgId": {
+      "type": "string"
+    }
+  },
+  "description": "Create an organization with a given id"
+}

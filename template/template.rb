@@ -7,7 +7,8 @@ File.expand_path(File.join(__dir__, "lib")).tap {|pwd|
 
 # Apis that should not be present in the external swagger docs
 EXTERNAL_EXCLUDES = [
-  "read"
+  "read",
+  "schema-internal"
 ]
 
 require 'ostruct'

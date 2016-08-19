@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "required": [
+    "metricName"
+  ],
+  "properties": {
+    "metricName": {
+      "type": "string"
+    },
+    "newDisplayName":{
+      "type": "string",
+      "description": "Name of the field to use when doing reads"
+    },
+    "aliases":{
+      "type": "array",
+      "items": "string"
+    }
+  },
+  "description": "Update a metric type"
+}

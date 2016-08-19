@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "required": [
+    "metricName"
+  ],
+  "properties": {
+    "metricName": {
+      "type": "string"
+    },
+    "aliases":{
+      "type": "array",
+      "items": "string"
+    }
+  },
+  "description": "Create a metric type (e.g. table)"
+}
