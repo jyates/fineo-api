@@ -1,14 +1,10 @@
 
-require 'aws-sdk'
+require 'aws_util'
 
 class Deploy
+  include AwsUtil
   def initialize(creds)
-    creds = Hash[creds.map{|k,v|
-      [k.to_sym, v]
-    }]
-    creds[:region] = "us-east-1"
-    creds[:validate_params] = true
-    @gateway = Aws::APIGateway::Client.new(creds)
+    @gateway = gateway(creds)
   end
 
   def deploy(name, api, id)

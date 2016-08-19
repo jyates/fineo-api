@@ -8,6 +8,7 @@ require 'optparse'
 require 'ostruct'
 require 'deploy'
 require 'apis'
+require 'promote'
 
 options = OpenStruct.new
 
@@ -16,15 +17,23 @@ OptionParser.new do |opts|
   opts.separator "Deploy the Fineo API"
   opts.separator "  Options:"
 
-  opts.on("-i", "--input DIRECTORY", "Input directory for swagger files") do |dir|
-    options.input = dir
+  opts.on("-a", "--api NAME", "Name of api. Valid names are: #{Apis.keys}") do |name|
+    options.api = name
+  end
+
+  opts.on("-s", "--stage STAGE", "Stage to which the API should be promoted") do |stage|
+    options.stage = stage
+  end
+
+  opts.on("-d", "--desc DESCRIPTION", "Description of the deployment") do |desc|
+    options.desc = desc
   end
 
   opts.on("--credentials FILE", "Credentials file to use for upload") do |creds|
     options.creds = creds
   end
 
-  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+  opts.on("-v", "--[no-]verbose", "Enable/Disable verbosity") do |v|
     options.verbose = true
   end
 
@@ -34,13 +43,5 @@ OptionParser.new do |opts|
   end
 end.parse!(ARGV)
 
-deployer = Deploy.new(options.creds)
-
-input = File.absolute_path(options.input)
-Dir["#{input}/*-swagger-integrations,authorizers.json"].each { |api|
-  parts = File.basename(api).split "-"
-  name = parts[0]
-  next if name == "api" # skip the customer focused version
-  id = Apis[name]
-  deployer.deploy(name, api, id)
-}
+id = Apis[options.api]
+Promote.new(options.creds).promote(id, options.stage, options.desc)
