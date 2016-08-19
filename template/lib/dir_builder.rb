@@ -38,7 +38,7 @@ private
 
     paths = {}
     dirs.each{|dir|
-      paths.merge! procdir(dirname, definitions, includes)
+      paths.merge! procdir(dir, definitions, includes)
     }
 
     files.each{|file|

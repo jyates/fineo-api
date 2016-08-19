@@ -1,0 +1,53 @@
+{
+  "post": {
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "name": "Content-Type",
+        "in": "header",
+        "required": false,
+        "type": "string"
+      },
+      {
+        "name": "file",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      },
+      {
+        "in": "body",
+        "name": "BatchUploadContent",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/BatchUploadContent"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}}
+    },
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      "credentials": "{{batch.credentials.upload}}",
+      "uri": "arn:aws:apigateway:us-east-1:s3:path/batch.fineo.io/ingest/{user}_{file}",
+      "passthroughBehavior": "when_no_match",
+      "responses": {
+        "\\d{3}": {
+          "statusCode": "200"
+        }
+      },
+      "requestParameters": {
+        "integration.request.path.user": "context.identity.apiKey",
+        "integration.request.path.file": "method.request.path.file",
+        "integration.request.header.Content-Type": "method.request.header.Content-Type"
+      },
+      "httpMethod": "PUT",
+      "type": "aws"
+    }
+  }
+}

@@ -11,8 +11,8 @@ class Templater
     @parents = parents
   end
 
-  def template(assigned)
-    includes = load_definitions(File.join(@source, Templates::INCLUDES))
+  def template(root, assigned)
+    includes = load_definitions(File.join(@source, Templates::INCLUDES)).merge(assigned)
     definitions = load_definitions(File.join(@source, Templates::DEFINITIONS))
 
     # Build the paths from the root
@@ -30,7 +30,6 @@ class Templater
       paths[k] = v
     }
 
-    root = File.join(@source, "root.json")
     assigned["paths"] = map_names_to_array(paths)
     assigned["includes"] = includes
     assigned["definitions"] = map_names_to_array(definitions)

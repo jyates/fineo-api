@@ -1,0 +1,18 @@
+{
+  "api" :{
+    "title": "fineo-ingest",
+    "host": "ingest.fineo.io",
+    "version": "v1"
+  },
+  "kinesis":{
+    "credentials": "arn:aws:iam::766732214526:role/apigateway_stream-kinesis",
+    "stream": "fineo-customer-ingest"
+  },
+  "batch":{
+    "credentials":{
+      "status":"arn:aws:iam::766732214526:role/apigateway_batch-get-s3",
+      "upload": "arn:aws:iam::766732214526:role/apigateway_batch-upload-file"
+    },
+    "sns-topic": "'arn:aws:sns:us-east-1:766732214526:batch-ingest-files_remote'"
+  }
+}

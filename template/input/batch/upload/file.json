@@ -1,0 +1,81 @@
+{
+  "post": {
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "body",
+        "name": "BatchUploadRemoteS3File",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/batchUploadRemoteS3File"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}}
+    },
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      "credentials": "{{batch.credentials.upload}}",
+      "requestTemplates": {
+        "application/json": "{ }"
+      },
+      "uri": "arn:aws:apigateway:us-east-1:sns:action/Publish",
+      "passthroughBehavior": "never",
+      "responses": {
+        "default": {
+          "statusCode": "200",
+          "responseTemplates": {
+            "application/json": "#set($inputRoot = $input.path('$'))\n{ }"
+          }
+        }
+      },
+      "requestParameters": {
+        "integration.request.querystring.TopicArn": "{{batch.sns-topic}}",
+        "integration.request.querystring.Subject": "context.identity.apiKey",
+        "integration.request.querystring.Message": "method.request.body.FilePath"
+      },
+      "httpMethod": "POST",
+      "type": "aws"
+    }
+  },
+  "put": {
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "name": "FilePath",
+        "in": "query",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      {{Success_200}}
+    },
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      "credentials": "{{batch.credentials.upload}}",
+      "uri": "arn:aws:apigateway:us-east-1:sns:action/Publish",
+      "passthroughBehavior": "never",
+      "responses": {
+        "default": {
+          "statusCode": "200"
+        }
+      },
+      "requestParameters": {
+        "integration.request.querystring.TopicArn": "{{batch.sns-topic}}",
+        "integration.request.querystring.Subject": "context.identity.apikey",
+        "integration.request.querystring.Message": "method.request.querystring.FilePath"
+      },
+      "httpMethod": "POST",
+      "type": "aws"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "array",
+  "description": "JSON blob of multiple event to batch upload. Max size: 10MB",
+  "items": {
+    "$ref": "#/definitions/SingleStreamEvent"
+  }
+}
