@@ -20,6 +20,10 @@ OptionParser.new do |opts|
     options.input = dir
   end
 
+  opts.on("-a", "--api NAME", "Name of the api to deploy. By default, deploys all apis") do |name|
+    options.api = name
+  end
+
   opts.on("--credentials FILE", "Credentials file to use for upload") do |creds|
     options.creds = creds
   end
@@ -35,12 +39,18 @@ OptionParser.new do |opts|
 end.parse!(ARGV)
 
 deployer = Deploy.new(options.creds)
-
 input = File.absolute_path(options.input)
-Dir["#{input}/*-swagger-integrations,authorizers.json"].each { |api|
-  parts = File.basename(api).split "-"
-  name = parts[0]
-  next if name == "api" # skip the customer focused version
+
+if options.api.nil?
+  Dir["#{input}/*-swagger-integrations,authorizers.json"].each { |api|
+    parts = File.basename(api).split "-"
+    name = parts[0]
+    next if name == "api" # skip the customer focused version
+    id = Apis[name]
+    deployer.deploy(name, api, id)
+  }
+else
+  name = options.api
   id = Apis[name]
-  deployer.deploy(name, api, id)
-}
+  deployer.deploy(options.api, "#{input}/#{name}-swagger-integrations,authorizers.json", id)
+end
