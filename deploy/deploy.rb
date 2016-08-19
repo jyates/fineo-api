@@ -1,5 +1,5 @@
+#!/usr/bin/env ruby
 
-# include lib/ dir
 File.expand_path(File.join(__dir__, "lib")).tap {|pwd|
   $LOAD_PATH.unshift(pwd) unless $LOAD_PATH.include?(pwd)
 }
@@ -8,6 +8,9 @@ require 'optparse'
 require 'ostruct'
 require 'deploy'
 require 'apis'
+require 'aws_util'
+
+include AwsUtil
 
 options = OpenStruct.new
 
@@ -34,9 +37,10 @@ OptionParser.new do |opts|
   end
 end.parse!(ARGV)
 
-input = File.absolute_path(options.input)
+credentials = load_credentials(options.creds)
+deployer = Deploy.new(credentials)
 
-deployer = Deploy.new(options.creds)
+input = File.absolute_path(options.input)
 Dir["#{input}/*-swagger-integrations,authorizers.json"].each { |api|
   parts = File.basename(api).split "-"
   name = parts[0]
