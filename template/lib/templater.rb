@@ -5,21 +5,22 @@ require 'dir_builder'
 class Templater
   include Templates
 
-  def initialize(outputName, suffix, source, parents)
-    @output = "#{outputName}-#{suffix}"
-    @source = source
+  def initialize(info, parents)
+    @info = info
     @parents = parents
   end
 
-  def template(root, assigned)
-    includes = load_definitions(File.join(@source, Templates::INCLUDES)).merge(assigned)
-    definitions = load_definitions(File.join(@source, Templates::DEFINITIONS))
+  def template(outputName, suffix)
+    output = "#{outputName}-#{suffix}"
+    root = @info.root
+    assigned = @info.assigned.dup
+    includes = @info.includes
+    definitions = @info.definitions
 
     # Build the paths from the root
     raw_paths = {}
     @parents.each{|name|
-      dir = File.join(@source, name)
-      builder = DirBuilder.new(dir)
+      builder = DirBuilder.new(name)
       raw_paths.merge! builder.build(includes, definitions)
     }
 
@@ -34,7 +35,7 @@ class Templater
     assigned["includes"] = includes
     assigned["definitions"] = map_names_to_array(definitions)
     file = template_file(root, assigned)
-    IO.write(@output, file)
+    IO.write(output, file)
   end
 
 private

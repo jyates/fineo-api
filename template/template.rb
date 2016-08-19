@@ -5,11 +5,15 @@ File.expand_path(File.join(__dir__, "lib")).tap {|pwd|
   $LOAD_PATH.unshift(pwd) unless $LOAD_PATH.include?(pwd)
 }
 
-require 'liquid'
+# Apis that should not be present in the external swagger docs
+EXTERNAL_EXCLUDES = [
+  "read"
+]
+
 require 'ostruct'
-require 'templater'
 require 'json'
 require 'optparse'
+require 'templating'
 
 current = File.dirname(__FILE__)
 options = {
@@ -44,25 +48,15 @@ OptionParser.new do |opts|
   end
 end.parse!(ARGV)
 
+include Templating
 root = File.join(options[:input], "root.json")
 default_file = File.join(options[:input], "defaults.json")
 assigns = JSON.parse(File.read(default_file))
 assigns.merge!(JSON.parse(File.read(options[:overrides]))) unless options[:overrides].nil?
 
-# just the streaming
-output = File.join(options[:output], "stream")
-templater = Templater.new(output, "swagger-integrations,authorizers.json",
-  options[:input], ["stream"])
-templater.template(root, assigns.dup())
-
-# just the batch
-
-output = File.join(options[:output], "batch")
-templater = Templater.new(output, "swagger-integrations,authorizers.json",
-  options[:input], ["batch"])
-templater.template(root, assigns.dup())
+# templating each api
+info = TemplateInfo.new(root, assigns, options[:input])
+external = template(info, options[:output])
 
 # combined, for the documentation
-output = File.join(options[:output], "api")
-templater = Templater.new(output, "swagger.json", options[:input], ["stream", "batch"])
-templater.template(root, assigns.dup())
+template_sources(info, "api", options[:output], external, "swagger.json")
