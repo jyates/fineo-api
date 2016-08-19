@@ -22,6 +22,6 @@ module Templating
 
   def template_sources(info, name, output, dirs, suffix="swagger-integrations,authorizers.json")
     output = File.join(output, name)
-    Templater.new(info, dirs).template(output, suffix)
+    Templater.new(info, dirs).template(name, output, suffix)
   end
 end

@@ -11,10 +11,11 @@ class Templater
     @parents = parents
   end
 
-  def template(outputName, suffix)
+  def template(name, outputName, suffix)
     output = "#{outputName}-#{suffix}"
     root = @info.root
     assigned = @info.assigned.dup
+    assigned["api"]["title"] = "fineo-#{name}"
     includes = @info.includes
     definitions = @info.definitions
 

@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "info": {
     "version": "2016-08-05T01:18:49Z",
-    "title": "fineo-ingest"
+    "title": "fineo-batch"
   },
   "host": "ingest.fineo.io",
-  "title": "fineo-ingest",
+  "title": "fineo-batch",
   "basePath": "/v1",
   "schemes": [
     "https"
