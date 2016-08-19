@@ -48,6 +48,9 @@
     }
   },
   "put": {
+    "tags": [
+      "{{ parent }}"
+    ],
     "produces": [
       "application/json"
     ],
