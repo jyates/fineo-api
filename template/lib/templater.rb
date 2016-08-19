@@ -24,6 +24,8 @@ class Templater
       raw_paths.merge! builder.build(includes, definitions)
     }
 
+    puts "Raw paths: #{raw_paths}"
+
     paths = {}
     raw_paths.each{|k,v|
       k = k.gsub("./input", "")
