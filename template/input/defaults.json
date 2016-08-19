@@ -14,5 +14,19 @@
       "upload": "arn:aws:iam::766732214526:role/apigateway_batch-upload-file"
     },
     "sns-topic": "'arn:aws:sns:us-east-1:766732214526:batch-ingest-files_remote'"
-  }
+  },
+ "schema": {
+   "version":{
+     "field":{
+       "add": "1",
+       "delete" : "1",
+       "update": "1"
+     },
+     "metric":{
+       "add": "1",
+       "delete" : "1",
+       "update": "1"
+     }
+   }
+ }
 }

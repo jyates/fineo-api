@@ -23,9 +23,7 @@
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
       "credentials": "{{kinesis.credentials}}",
-      "requestTemplates": {
-        "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n#set($data = $util.base64Encode(\"$bodyJson\"))\n{\n    \"StreamName\": \"{{kinesis.stream}}\",\n    \"Data\": \"$data\",\n    \"PartitionKey\": \"$orgID\"\n}"
-      },
+      {{inject_org_id_as_template}},
       "uri": "arn:aws:apigateway:us-east-1:kinesis:action/PutRecord",
       "passthroughBehavior": "never",
       "responses": {
