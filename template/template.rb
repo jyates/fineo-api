@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# include the "src/lib" directory
+# include the "lib" directory
 File.expand_path(File.join(__dir__, "lib")).tap {|pwd|
   $LOAD_PATH.unshift(pwd) unless $LOAD_PATH.include?(pwd)
 }
