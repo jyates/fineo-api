@@ -1,5 +1,8 @@
 {
   "post": {
+    "tags": [
+      "{{ parent }}"
+    ],
     "consumes": [
       "application/json"
     ],

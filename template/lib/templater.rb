@@ -1,6 +1,7 @@
 
 require 'templates'
 require 'dir_builder'
+require 'json'
 
 class Templater
   include Templates
@@ -24,12 +25,11 @@ class Templater
       raw_paths.merge! builder.build(includes, definitions)
     }
 
-    puts "Raw paths: #{raw_paths}"
-
     paths = {}
     raw_paths.each{|k,v|
       k = k.gsub("./input", "")
       k = k.gsub(".json", "")
+      k = k.sub(@info.input, "")
       paths[k] = v
     }
 
@@ -37,7 +37,12 @@ class Templater
     assigned["includes"] = includes
     assigned["definitions"] = map_names_to_array(definitions)
     file = template_file(root, assigned)
-    IO.write(output, file)
+
+    # pretty print the json - helps with visual validation
+    json = JSON.parse(file)
+    File.open(output,"w") do |f|
+      f.write(JSON.pretty_generate(json))
+    end
   end
 
 private

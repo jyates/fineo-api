@@ -1,5 +1,8 @@
 {
   "get": {
+    "tags": [
+      "{{ parent }}"
+    ],
     "produces": [
       "application/json",
       "application/xml"
