@@ -1,0 +1,45 @@
+{
+  "put": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "in": "body",
+        "name": "UpdateMetric",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/UpdateMetric"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{Error_400}},
+      {{Error_500}}
+    },
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      "credentials": "{{kinesis.credentials}}",
+      "requestTemplates": {
+        "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n#set($data = $util.base64Encode(\"$bodyJson\"))\n{\n    \"StreamName\": \"{{kinesis.stream}}\",\n    \"Data\": \"$data\",\n    \"PartitionKey\": \"$orgID\"\n}"
+      },
+      "uri": "arn:aws:apigateway:us-east-1:kinesis:action/PutRecord",
+      "passthroughBehavior": "never",
+      "responses": {
+        "200": {
+          "statusCode": "200"
+        },
+        "400": {
+          "statusCode": "400"
+        },
+        "500": {
+          "statusCode": "500"
+        }
+      },
+      "type": "aws"
+    }
+  }
+}
