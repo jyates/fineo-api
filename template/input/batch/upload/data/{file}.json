@@ -24,10 +24,10 @@
       },
       {
         "in": "body",
-        "name": "BatchUploadContent",
+        "name": "BatchUploadEvents",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/BatchUploadContent"
+          "$ref": "#/definitions/BatchUploadEvents"
         }
       }
     ],

@@ -1,6 +1,6 @@
 
 Apis = {
-  "stream" => "1e0ky4v8f1",
-  "batch" => "g03znkc0ti",
+  "stream" => "9ar9z9wds8",
+  "batch" => "ryivkruuhl",
   "read" => "53r0nhslih"
 }

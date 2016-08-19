@@ -15,7 +15,7 @@
         "name": "BatchUploadRemoteS3File",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/batchUploadRemoteS3File"
+          "$ref": "#/definitions/BatchUploadRemoteS3File"
         }
       }
     ],

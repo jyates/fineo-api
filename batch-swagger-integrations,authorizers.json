@@ -110,10 +110,10 @@
           },
           {
             "in": "body",
-            "name": "BatchUploadContent",
+            "name": "BatchUploadEvents",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/BatchUploadContent"
+              "$ref": "#/definitions/BatchUploadEvents"
             }
           }
         ],
@@ -173,7 +173,7 @@
             "name": "BatchUploadRemoteS3File",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/batchUploadRemoteS3File"
+              "$ref": "#/definitions/BatchUploadRemoteS3File"
             }
           }
         ],
