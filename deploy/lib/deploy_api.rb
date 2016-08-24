@@ -1,8 +1,6 @@
 
-require 'aws_util'
-
-class Deploy
-  include AwsUtil
+class DeployApi
+  include FineoApi::AwsUtil
   def initialize(creds)
     @gateway = gateway(creds)
   end
@@ -11,6 +9,8 @@ class Deploy
     return create(name, api) if id.nil?
     update(name, api, id)
   end
+
+  def flush(); end
 
 private
 
