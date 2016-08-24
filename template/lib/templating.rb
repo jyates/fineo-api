@@ -3,8 +3,24 @@ require 'liquid'
 require 'templater'
 require 'template_info'
 require 'templates'
+require 'deep_merge'
 
 module Templating
+
+  def get_assigns(props)
+    case props
+      when String
+        assigns = JSON.parse(File.read(props)
+      when Array
+        assigns = {}
+        props.each{|file|
+          assigns = assigns.deep_merge JSON.parse(File.read(file)) if File.exists? file
+        }
+      when nil
+        raise "Must provide a properties file!"
+    end
+    assigns
+  end
 
   def template(info, output)
     external = []

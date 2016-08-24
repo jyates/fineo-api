@@ -37,8 +37,9 @@ OptionParser.new do |opts|
     options[:input] = v
   end
 
-  opts.on("-r", "--overrides OVERRIDE_JSON", "Template field overrides json file") do |v|
-    options[:overrides] = v
+  opts.on("-p", "--properties props,overrides", Array, "Comma separated properties and overrides " +
+    "for those properties to when populating templates") do |v|
+    options[:props] = v
   end
 
   opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
@@ -53,9 +54,7 @@ end.parse!(ARGV)
 
 include Templating
 root = File.join(options[:input], "root.json")
-default_file = File.join(options[:input], "defaults.json")
-assigns = JSON.parse(File.read(default_file))
-assigns.merge!(JSON.parse(File.read(options[:overrides]))) unless options[:overrides].nil?
+assigns = get_assigns(options[:props])
 
 # templating each api
 info = TemplateInfo.new(root, assigns, options[:input])
