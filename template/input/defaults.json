@@ -1,32 +1,32 @@
 {
-  "api" :{
+  "api": {
     "title": "fineo-ingest",
     "host": "ingest.fineo.io",
     "version": "v1"
   },
-  "kinesis":{
+  "kinesis": {
     "credentials": "arn:aws:iam::766732214526:role/apigateway_stream-kinesis",
     "stream": "fineo-customer-ingest"
   },
-  "batch":{
-    "credentials":{
-      "status":"arn:aws:iam::766732214526:role/apigateway_batch-get-s3",
+  "batch": {
+    "credentials": {
+      "status": "arn:aws:iam::766732214526:role/apigateway_batch-get-s3",
       "upload": "arn:aws:iam::766732214526:role/apigateway_batch-upload-file"
     },
     "sns-topic": "'arn:aws:sns:us-east-1:766732214526:batch-ingest-files_remote'"
   },
- "schema": {
-   "version":{
-     "field":{
-       "add": "1",
-       "delete" : "1",
-       "update": "1"
-     },
-     "metric":{
-       "add": "1",
-       "delete" : "1",
-       "update": "1"
-     }
-   }
- }
+  "schema": {
+    "lambda": {
+      "metric": {
+        "create": "arn:aws:lambda:us-east-1:766732214526:function:SchemaMetricCreate",
+        "update": "arn:aws:lambda:us-east-1:766732214526:function:SchemaMetricUpdate",
+        "delete": "arn:aws:lambda:us-east-1:766732214526:function:SchemaMetricDelete"
+      },
+      "field": {
+        "create": "arn:aws:lambda:us-east-1:766732214526:function:SchemaFieldCreate",
+        "update": "arn:aws:lambda:us-east-1:766732214526:function:SchemaFieldUpdate",
+        "delete": "arn:aws:lambda:us-east-1:766732214526:function:SchemaFieldDelete"
+      }
+    }
+  }
 }
