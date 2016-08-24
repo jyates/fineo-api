@@ -41,6 +41,7 @@ end.parse!(ARGV)
 deployer = Deploy.new(options.creds)
 input = File.absolute_path(options.input)
 
+# no specified API, deploy them all
 if options.api.nil?
   Dir["#{input}/*-swagger-integrations,authorizers.json"].each { |api|
     parts = File.basename(api).split "-"
@@ -50,6 +51,7 @@ if options.api.nil?
     deployer.deploy(name, api, id)
   }
 else
+# just deploy the specified api
   name = options.api
   id = Apis[name]
   deployer.deploy(options.api, "#{input}/#{name}-swagger-integrations,authorizers.json", id)
