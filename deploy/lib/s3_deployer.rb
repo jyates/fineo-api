@@ -6,8 +6,9 @@ class S3Deployer
   include FineoApi::AwsUtil
 
   def initialize(creds, options)
-    credentials = load_creds(creds)
-    @s3 = S3Upload.new(credentials, options.verbose)
+    credentials = load_credentials(creds)
+    puts "Using creds: #{credentials.access_key_id}, #{credentials.secret_access_key}"
+    @s3 = FineoApi::S3Upload.new(credentials, options.verbose)
     @now = Time.now
     @bucket = options.s3
     @output = options.output
@@ -18,7 +19,7 @@ class S3Deployer
     parts = @bucket.split "/"
     bucket = parts.shift
     base = File.basename(api)
-    key = File.join(parts, now, name, base)
+    key = File.join(parts, @now.to_s, name, base)
     s3 = @s3.upload(api, bucket, key)
     add_api(name, s3)
   end
@@ -27,7 +28,9 @@ class S3Deployer
     @updates.each{|update|
       name =  update["name"]
       change = update["api"]
+      FileUtils.mkdir_p @output
       file = File.join(@output, "#{name}-update.json")
+
       File.open(file, "w") do |f|
         f.write(JSON.pretty_generate(JSON.parse(change.to_json().to_s())))
       end

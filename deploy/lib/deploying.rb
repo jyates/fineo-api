@@ -1,15 +1,19 @@
 
+module FineoApi
+end
+
 require 'optparse'
 require 'ostruct'
-require 'deploy'
 require 'apis'
 require 'aws/aws_util'
 require 'aws/s3_upload'
+require 's3_deployer'
+require 'deploy_api'
 
 module Deploying
   def parse(args)
     options = OpenStruct.new
-    options.s3 = "deploy.fineo.io/api"
+    options.s3 = "deploy.fineo.io/api/prod"
 
     OptionParser.new do |opts|
       opts.banner = "Usage: deploy [options]"
@@ -38,10 +42,9 @@ module Deploying
         options.creds = creds
       end
 
-      opts.on("--really-force-api-deployment", "WARNING: Only used for unusual circumstances. "+
+      opts.on("--really-force-api-deployment", "WARNING: Only used for unusual circumstances. \n"+
         "Forces the deployment of the api directly to AWS Api Gateway, rather than just pushing "+
-        "updated schema file, generating a change set and waiting for a cloud template change.")
-        do |force|
+        "updated schema file, generating a change set and waiting for a cloud template change.") do |force|
         puts "  --------  WARNING --------- "
         puts " This should only be used in extreme circumstances to force deployment of the api. "
         puts "Instead, you should just deploy the new API(s) to s3, commit the update to the " +
@@ -68,7 +71,4 @@ module Deploying
       Deploy.new(options.creds) : \
       S3Deployer.new(options.creds, options)
   end
-end
-
-module FineoApi
 end

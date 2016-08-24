@@ -1,11 +1,8 @@
 
 class FineoApi::S3Upload
 
-  include InternalUtils
-
   def initialize(creds, verbose)
-    @s3 = Aws::S3::Resource.new(access_key_id: creds['access_key_id'],
-                                secret_access_key: creds['secret_access_key'],
+    @s3 = Aws::S3::Resource.new(credentials: creds,
                                 validate_params: true,
                                 log_level: :debug)
     @verbose = verbose

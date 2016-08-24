@@ -29,6 +29,8 @@ OptionParser.new do |opts|
 
   opts.on("-o", "--output DIRECTORY", "Output directory. Default: #{options[:output]}") do |v|
     options[:output] = v
+    #ensure the output directory exists
+    FileUtils.mkdir_p v
   end
 
   opts.on("-i", "--input DIRECTORY", "Input directory. Default: #{options[:input]}") do |v|
