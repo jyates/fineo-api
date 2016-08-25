@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+
+# include the "lib" directory
+File.expand_path(File.join(__dir__, "..", "lib")).tap {|pwd|
+  $LOAD_PATH.unshift(pwd) unless $LOAD_PATH.include?(pwd)
+}
+
+APIS = ["stream", "batch", "read", "schema", "schema-internal"]
+
+# Apis that should not be present in the external swagger docs
+EXTERNAL_EXCLUDES = [
+  "read",
+  "schema-internal"
+]
+
+require 'deep_merge'
+require 'templating'
+include Templating
+
+current = File.dirname(__FILE__)
+options = {
+  :output => File.join(current, "..", ".."),
+  :input =>  File.join(current, "..", "input")
+}
+parse(ARGV, options)
+
+root = File.join(options[:input], "root.json")
+
+# templating each api
+assigns = {}
+APIS.each{|api|
+  assignments = template_api(api.to_sym, root, options)
+  assigns = assigns.deep_merge assignments
+}
+
+exit unless options[:external]
+
+# combined, for the documentation
+# override the common properties to something that makes sense
+api = OpenStruct.new(title: "fineo-api",
+                      host: "write.fineo.io",
+                      version: "v1")
+assigns["api"] = api
+# only publish the externally visible APIs
+APIS.keep_if{|name| !EXTERNAL_EXCLUDES.include? name}
+#actually do the templating
+info = TemplateInfo.new(root, assigns, options[:input])
+template_sources(info, "api", options[:output], APIS, "swagger.json")

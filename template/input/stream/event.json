@@ -22,9 +22,9 @@
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      "credentials": "{{kinesis.credentials}}",
+      "credentials": "{{api.stream.kinesis.credentials}}",
       "requestTemplates": {
-        "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n{\n    \"StreamName\": \"{{kinesis.stream}}\",\n    \"Records\": [\n        #foreach($elem in $bodyJson)\n{\n            #set($elem.companykey = $orgID)\n            \"Data\": \"$util.base64Encode($elem)\",\n            \"PartitionKey\": \"$orgID\"\n        }#if($foreach.hasNext),#end\n        #end\n    ]\n}\n"
+        "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n{\n    \"StreamName\": \"{{api.stream.kinesis.stream}}\",\n    \"Records\": [\n        #foreach($elem in $bodyJson)\n{\n            #set($elem.companykey = $orgID)\n            \"Data\": \"$util.base64Encode($elem)\",\n            \"PartitionKey\": \"$orgID\"\n        }#if($foreach.hasNext),#end\n        #end\n    ]\n}\n"
       },
       "uri": "arn:aws:apigateway:us-east-1:kinesis:action/PutRecord",
       "passthroughBehavior": "never",

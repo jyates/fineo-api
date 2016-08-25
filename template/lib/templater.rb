@@ -28,7 +28,6 @@ class Templater
 
     paths = {}
     raw_paths.each{|k,v|
-      k = k.gsub("./input", "")
       k = k.gsub(".json", "")
       k = k.sub(@info.input, "")
       paths[k] = v
