@@ -1,5 +1,5 @@
 
-class DeployApi
+class FineoApi::DeployApi
   include FineoApi::AwsUtil
   def initialize(creds)
     @gateway = gateway(creds)

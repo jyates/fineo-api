@@ -16,7 +16,6 @@ EXTERNAL_EXCLUDES = [
 require 'deep_merge'
 require 'templating'
 include Templating
-
 current = File.dirname(__FILE__)
 options = {
   :output => File.join(current, "..", ".."),

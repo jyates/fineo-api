@@ -7,6 +7,7 @@ require 'templater'
 require 'template_info'
 require 'templates'
 require 'deep_merge'
+require 'fileutils'
 
 module Templating
 

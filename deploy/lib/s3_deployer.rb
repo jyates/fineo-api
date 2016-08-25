@@ -2,25 +2,37 @@
 require 'json'
 
 # Does an api deployment to s3
-class S3Deployer
+class FineoApi::S3Deployer
   include FineoApi::AwsUtil
 
   def initialize(creds, options)
     credentials = load_credentials(creds)
-    puts "Using creds: #{credentials.access_key_id}, #{credentials.secret_access_key}"
     @s3 = FineoApi::S3Upload.new(credentials, options.verbose)
-    @now = Time.now
-    @bucket = options.s3
+    if options.test
+      @props = JSON.parse(File.read(options.test))["api"]
+      @test = true
+    else
+      @test = false
+      @now = Time.now
+      @bucket = options.s3
+    end
     @output = options.output
     @updates = []
   end
 
   def deploy(name, api, id)
-    parts = @bucket.split "/"
-    bucket = parts.shift
-    base = File.basename(api)
-    key = File.join(parts, @now.to_s, name, base)
+     base = File.basename(api)
+    if @test
+      config = @props[name]
+      bucket = config["s3"]["bucket"]
+      key = config["s3"]["key"]
+    else
+      parts = @bucket.split "/"
+      bucket = parts.shift
+      key = File.join(parts, @now.to_s, name, base)
+    end
     s3 = @s3.upload(api, bucket, key)
+
     add_api(name, s3)
   end
 

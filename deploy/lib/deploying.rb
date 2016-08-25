@@ -38,6 +38,11 @@ module Deploying
         options.s3 = s3
       end
 
+      opts.on("--test PROPERTIES", "API was created for testing. The S3 target will be provided " +
+        "by the specified properties file") do |test|
+        options.test = test
+      end
+
       opts.on("--credentials FILE", "Credentials file to use for upload") do |creds|
         options.creds = creds
       end
@@ -68,7 +73,7 @@ module Deploying
 
   def get_deployer(options)
     options.force ? \
-      Deploy.new(options.creds) : \
-      S3Deployer.new(options.creds, options)
+      FineoApi::Deploy.new(options.creds) : \
+      FineoApi::S3Deployer.new(options.creds, options)
   end
 end
