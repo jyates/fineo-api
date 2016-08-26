@@ -8,22 +8,53 @@
     "parameters": [
       {
         "in": "body",
-        "name": "AddField",
+        "name": "CreateField",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/AddField"
+          "$ref": "#/definitions/CreateField"
         }
       }
     ],
     "responses": {
-      {{Success_200}},
-      {{Error_400}},
-      {{Error_500}}
+      {{Success_200}}
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      {{inject_org_id_as_template}}
-      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:AddFieldToMetric:{{schema.version.field.add}}/invocations",
+      {{inject_org_id_as_template}},
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaFieldCreate.function.name}}/invocations",
+      "passthroughBehavior": "never",
+      "responses": {
+        "default": {
+          "statusCode": "200"
+        }
+      },
+      "httpMethod": "POST",
+      "type": "aws"
+    }
+  },
+  "get": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "in": "body",
+        "name": "ReadField",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/ReadField"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}}
+    },
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{inject_org_id_as_template}},
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaFieldRead.function.name}}/invocations",
       "passthroughBehavior": "never",
       "responses": {
         "default": {
@@ -43,22 +74,20 @@
     "parameters": [
       {
         "in": "body",
-        "name": "AddField",
+        "name": "UpdateField",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/AddField"
+          "$ref": "#/definitions/UpdateField"
         }
       }
     ],
     "responses": {
-      {{Success_200}},
-      {{Error_400}},
-      {{Error_500}}
+      {{Success_200}}
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      {{inject_org_id_as_template}}
-      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:AddFieldToMetric:{{schema.version.field.add}}/invocations",
+      {{inject_org_id_as_template}},
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaFieldUpdate.function.name}}/invocations",
       "passthroughBehavior": "never",
       "responses": {
         "default": {
@@ -86,14 +115,12 @@
       }
     ],
     "responses": {
-      {{Success_200}},
-      {{Error_400}},
-      {{Error_500}}
+      {{Success_200}}
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      {{inject_org_id_as_template}}
-      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:DeleteField:{{schema.version.field.add}}/invocations",
+      {{inject_org_id_as_template}},
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaFieldDelete.function.name}}/invocations",
       "passthroughBehavior": "never",
       "responses": {
         "default": {

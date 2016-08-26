@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "required": [
+    "metricName",
+    "fieldName"
+  ],
+  "properties": {
+    "metricName": {
+      "type": "string"
+    },
+    "fieldName": {
+      "type": "string"
+    }
+  },
+  "description": "Read the schema for a single field in a metric"
+}

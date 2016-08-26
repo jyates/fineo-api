@@ -8,22 +8,53 @@
     "parameters": [
       {
         "in": "body",
-        "name": "AddField",
+        "name": "CreateMetric",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/AddField"
+          "$ref": "#/definitions/CreateMetric"
         }
       }
     ],
     "responses": {
-      {{Success_200}},
-      {{Error_400}},
-      {{Error_500}}
+      {{Success_200}}
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      {{inject_org_id_as_template}}
-      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:AddFieldToMetric:{{schema.version.field.add}}/invocations",
+      {{inject_org_id_as_template}},
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaMetricCreate.function.name}}/invocations",
+      "passthroughBehavior": "never",
+      "responses": {
+        "default": {
+          "statusCode": "200"
+        }
+      },
+      "httpMethod": "POST",
+      "type": "aws"
+    }
+  },
+  "get": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "in": "body",
+        "name": "ReadMetric",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/ReadMetric"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}}
+    },
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{inject_org_id_as_template}},
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaMetricRead.function.name}}/invocations",
       "passthroughBehavior": "never",
       "responses": {
         "default": {
@@ -43,22 +74,20 @@
     "parameters": [
       {
         "in": "body",
-        "name": "AddField",
+        "name": "UpdateMetric",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/AddField"
+          "$ref": "#/definitions/UpdateMetric"
         }
       }
     ],
     "responses": {
-      {{Success_200}},
-      {{Error_400}},
-      {{Error_500}}
+      {{Success_200}}
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      {{inject_org_id_as_template}}
-      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:AddFieldToMetric:{{schema.version.field.add}}/invocations",
+      {{inject_org_id_as_template}},
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaMetricUpdate.function.name}}/invocations",
       "passthroughBehavior": "never",
       "responses": {
         "default": {
@@ -78,22 +107,20 @@
     "parameters": [
       {
         "in": "body",
-        "name": "DeleteField",
+        "name": "DeleteMetric",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/DeleteField"
+          "$ref": "#/definitions/DeleteMetric"
         }
       }
     ],
     "responses": {
-      {{Success_200}},
-      {{Error_400}},
-      {{Error_500}}
+      {{Success_200}}
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      {{inject_org_id_as_template}}
-      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:DeleteField:{{schema.version.field.add}}/invocations",
+      {{inject_org_id_as_template}},
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaMetricDelete.function.name}}/invocations",
       "passthroughBehavior": "never",
       "responses": {
         "default": {

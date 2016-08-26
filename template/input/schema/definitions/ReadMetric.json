@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": [
+    "metricName"
+  ],
+  "properties": {
+    "metricName": {
+      "type": "string"
+    }
+  },
+  "description": "Read a metric schema"
+}
