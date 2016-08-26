@@ -67,6 +67,61 @@
           "type": "aws"
         }
       },
+      "get": {
+        "tags": [
+          "schema"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "ReadField",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReadField"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "security": [
+          {
+            "sigv4": [
+
+            ]
+          },
+          {
+            "api_key": [
+
+            ]
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n{\n    #foreach($key in $bodyJson.keySet())\n    #set($params = $allParams.get($type))\n    \"$key\" : \"$bodyJson[$key]\"#if($foreach.hasNext),#end\n    #end\n}\n    "
+          },
+          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:SchemaFieldRead/invocations",
+          "passthroughBehavior": "never",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
       "patch": {
         "tags": [
           "schema"
@@ -224,6 +279,61 @@
             "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n{\n    #foreach($key in $bodyJson.keySet())\n    #set($params = $allParams.get($type))\n    \"$key\" : \"$bodyJson[$key]\"#if($foreach.hasNext),#end\n    #end\n}\n    "
           },
           "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:SchemaMetricCreate/invocations",
+          "passthroughBehavior": "never",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "get": {
+        "tags": [
+          "schema"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "ReadMetric",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReadMetric"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "security": [
+          {
+            "sigv4": [
+
+            ]
+          },
+          {
+            "api_key": [
+
+            ]
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n{\n    #foreach($key in $bodyJson.keySet())\n    #set($params = $allParams.get($type))\n    \"$key\" : \"$bodyJson[$key]\"#if($foreach.hasNext),#end\n    #end\n}\n    "
+          },
+          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:SchemaMetricRead/invocations",
           "passthroughBehavior": "never",
           "responses": {
             "default": {
@@ -484,6 +594,34 @@
         }
       },
       "description": "Delete a metric type"
+    },
+    "ReadField": {
+      "type": "object",
+      "required": [
+        "metricName",
+        "fieldName"
+      ],
+      "properties": {
+        "metricName": {
+          "type": "string"
+        },
+        "fieldName": {
+          "type": "string"
+        }
+      },
+      "description": "Read the schema for a single field in a metric"
+    },
+    "ReadMetric": {
+      "type": "object",
+      "required": [
+        "metricName"
+      ],
+      "properties": {
+        "metricName": {
+          "type": "string"
+        }
+      },
+      "description": "Read a metric schema"
     },
     "UpdateField": {
       "type": "object",

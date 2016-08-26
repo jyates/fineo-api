@@ -43,8 +43,10 @@ class FineoApi::S3Deployer
       FileUtils.mkdir_p @output
       file = File.join(@output, "#{name}-update.json")
 
+      out = {"api" => {name =>change}}
+
       File.open(file, "w") do |f|
-        f.write(JSON.pretty_generate(JSON.parse(change.to_json().to_s())))
+        f.write(JSON.pretty_generate(out))
       end
     }
   end

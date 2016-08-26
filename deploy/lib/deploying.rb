@@ -13,7 +13,7 @@ require 'deploy_api'
 module Deploying
   def parse(args)
     options = OpenStruct.new
-    options.s3 = "deploy.fineo.io/api/prod"
+    options.s3 = "deploy.fineo.io/api"
 
     OptionParser.new do |opts|
       opts.banner = "Usage: deploy [options]"
