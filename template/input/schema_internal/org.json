@@ -21,14 +21,15 @@
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaOrgCreate.function.name}}/invocations",
-      "passthroughBehavior": "always",
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.InternalSchemaCreateOrg.function.name}}/invocations",
+      "passthroughBehavior": "when_no_match",
       "responses": {
-      "default": {
-        "statusCode": "200"
+        "default": {
+          "statusCode": "200"
+        },
+        {{std_error_mappings}}
       },
-      {{std_error_mappings}}
-    }
+      "httpMethod": "POST",
       "type": "aws"
     }
   }

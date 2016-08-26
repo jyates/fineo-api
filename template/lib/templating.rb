@@ -42,9 +42,9 @@ module Templating
         options[:schema] = stream
       end
 
-      opts.on("--schema-internal props,overrides", Array, "Comma separated properties/overrides "+
+      opts.on("--schema_internal props,overrides", Array, "Comma separated properties/overrides "+
         "for the schema api") do |stream|
-        options[:schema] = stream
+        options[:schema_internal] = stream
       end
 
       opts.on("--read props,overrides", Array, "Comma separated properties/overrides for the "+
