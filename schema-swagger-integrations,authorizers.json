@@ -1,0 +1,531 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2016-08-05T01:18:49Z",
+    "title": "fineo-schema"
+  },
+  "host": "write.fineo.io",
+  "title": "fineo-schema",
+  "basePath": "/v1",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/schema/field": {
+      "post": {
+        "tags": [
+          "schema"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "CreateField",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateField"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "security": [
+          {
+            "sigv4": [
+
+            ]
+          },
+          {
+            "api_key": [
+
+            ]
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n{\n    #foreach($key in $bodyJson.keySet())\n    #set($params = $allParams.get($type))\n    \"$key\" : \"$bodyJson[$key]\"#if($foreach.hasNext),#end\n    #end\n}\n    "
+          },
+          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:SchemaFieldCreate/invocations",
+          "passthroughBehavior": "never",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "patch": {
+        "tags": [
+          "schema"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "UpdateField",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateField"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "security": [
+          {
+            "sigv4": [
+
+            ]
+          },
+          {
+            "api_key": [
+
+            ]
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n{\n    #foreach($key in $bodyJson.keySet())\n    #set($params = $allParams.get($type))\n    \"$key\" : \"$bodyJson[$key]\"#if($foreach.hasNext),#end\n    #end\n}\n    "
+          },
+          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:SchemaFieldUpdate/invocations",
+          "passthroughBehavior": "never",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "delete": {
+        "tags": [
+          "schema"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "DeleteField",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteField"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "security": [
+          {
+            "sigv4": [
+
+            ]
+          },
+          {
+            "api_key": [
+
+            ]
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n{\n    #foreach($key in $bodyJson.keySet())\n    #set($params = $allParams.get($type))\n    \"$key\" : \"$bodyJson[$key]\"#if($foreach.hasNext),#end\n    #end\n}\n    "
+          },
+          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:SchemaFieldDelete/invocations",
+          "passthroughBehavior": "never",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    },
+    "/schema/metric": {
+      "post": {
+        "tags": [
+          "schema"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "CreateMetric",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateMetric"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "security": [
+          {
+            "sigv4": [
+
+            ]
+          },
+          {
+            "api_key": [
+
+            ]
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n{\n    #foreach($key in $bodyJson.keySet())\n    #set($params = $allParams.get($type))\n    \"$key\" : \"$bodyJson[$key]\"#if($foreach.hasNext),#end\n    #end\n}\n    "
+          },
+          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:SchemaMetricCreate/invocations",
+          "passthroughBehavior": "never",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "patch": {
+        "tags": [
+          "schema"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "UpdateMetric",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateMetric"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "security": [
+          {
+            "sigv4": [
+
+            ]
+          },
+          {
+            "api_key": [
+
+            ]
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n{\n    #foreach($key in $bodyJson.keySet())\n    #set($params = $allParams.get($type))\n    \"$key\" : \"$bodyJson[$key]\"#if($foreach.hasNext),#end\n    #end\n}\n    "
+          },
+          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:SchemaMetricUpdate/invocations",
+          "passthroughBehavior": "never",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      },
+      "delete": {
+        "tags": [
+          "schema"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "DeleteMetric",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteMetric"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "schema": {
+              "$ref": "#/definitions/Empty"
+            }
+          }
+        },
+        "security": [
+          {
+            "sigv4": [
+
+            ]
+          },
+          {
+            "api_key": [
+
+            ]
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "requestTemplates": {
+            "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n{\n    #foreach($key in $bodyJson.keySet())\n    #set($params = $allParams.get($type))\n    \"$key\" : \"$bodyJson[$key]\"#if($foreach.hasNext),#end\n    #end\n}\n    "
+          },
+          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:SchemaMetricDelete/invocations",
+          "passthroughBehavior": "never",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "httpMethod": "POST",
+          "type": "aws"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "x-api-key",
+      "in": "header"
+    },
+    "sigv4": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "x-amazon-apigateway-authtype": "awsSigv4"
+    }
+  },
+  "definitions": {
+    "BatchUploadEvents": {
+      "type": "array",
+      "description": "JSON blob of multiple event to batch upload. Max size: 10MB",
+      "items": {
+        "$ref": "#/definitions/SingleStreamEvent"
+      }
+    },
+    "BatchUploadRemoteS3File": {
+      "type": "object",
+      "properties": {
+        "FilePath": {
+          "type": "string"
+        }
+      }
+    },
+    "Empty": {
+      "type": "object"
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "MultiStreamEvent": {
+      "description": "Up to 500 records - each record up to 1MB - up to 5MB total per request",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SingleStreamEvent"
+      }
+    },
+    "SingleStreamEvent": {
+      "type": "object",
+      "required": [
+        "metrictype",
+        "timestamp"
+      ],
+      "properties": {
+        "timestamp": {
+          "type": "number",
+          "minimum": 31536000000
+        },
+        "metrictype": {
+          "type": "string"
+        },
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+          }
+        }
+      },
+      "description": "Single event at a timestamp. Max size: 1MB"
+    },
+    "CreateField": {
+      "type": "object",
+      "required": [
+        "metricName",
+        "fieldName",
+        "fieldType"
+      ],
+      "properties": {
+        "metricName": {
+          "type": "string"
+        },
+        "fieldName": {
+          "type": "string"
+        },
+        "fieldType": {
+          "type": "string",
+          "description": "Standard SQL type for the field. See documentation for valid types."
+        },
+        "aliases": {
+          "type": "array",
+          "items": "string",
+          "description": "Write aliases for the field. E.g. T, Tmp and Temp could be aliases for a field named 'Temperature'"
+        }
+      },
+      "description": "Add a field to a metric type"
+    },
+    "CreateMetric": {
+      "type": "object",
+      "required": [
+        "metricName"
+      ],
+      "properties": {
+        "metricName": {
+          "type": "string"
+        },
+        "aliases": {
+          "type": "array",
+          "items": "string"
+        }
+      },
+      "description": "Create a metric type (e.g. table)"
+    },
+    "DeleteField": {
+      "type": "object",
+      "required": [
+        "metricName",
+        "fieldName"
+      ],
+      "properties": {
+        "metricName": {
+          "type": "string"
+        },
+        "fieldName": {
+          "type": "string"
+        }
+      },
+      "description": "Delete a field in a metric"
+    },
+    "DeleteMetric": {
+      "type": "object",
+      "required": [
+        "metricName"
+      ],
+      "properties": {
+        "metricName": {
+          "type": "string"
+        }
+      },
+      "description": "Delete a metric type"
+    },
+    "UpdateField": {
+      "type": "object",
+      "required": [
+        "metricName",
+        "fieldName",
+        "fieldType"
+      ],
+      "properties": {
+        "metricName": {
+          "type": "string"
+        },
+        "fieldName": {
+          "type": "string"
+        },
+        "aliases": {
+          "type": "array",
+          "items": "string",
+          "description": "Write aliases for the field. E.g. T, Tmp and Temp could be aliases for a field named 'Temperature'"
+        }
+      },
+      "description": "Update field properties"
+    },
+    "UpdateMetric": {
+      "type": "object",
+      "required": [
+        "metricName"
+      ],
+      "properties": {
+        "metricName": {
+          "type": "string"
+        },
+        "newDisplayName": {
+          "type": "string",
+          "description": "Name of the field to use when doing reads"
+        },
+        "aliases": {
+          "type": "array",
+          "items": "string"
+        }
+      },
+      "description": "Update a metric type"
+    }
+  }
+}
