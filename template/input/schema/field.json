@@ -16,7 +16,8 @@
       }
     ],
     "responses": {
-      {{Success_200}}
+      {{Success_200}},
+      {{std_error_responses}}
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
@@ -26,7 +27,8 @@
       "responses": {
         "default": {
           "statusCode": "200"
-        }
+        },
+        {{std_error_mappings}}
       },
       "httpMethod": "POST",
       "type": "aws"
@@ -49,7 +51,8 @@
       }
     ],
     "responses": {
-      {{Success_200}}
+      {{Success_200}},
+      {{std_error_responses}}
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
@@ -59,7 +62,8 @@
       "responses": {
         "default": {
           "statusCode": "200"
-        }
+        },
+        {{std_error_mappings}}
       },
       "httpMethod": "POST",
       "type": "aws"
@@ -82,7 +86,8 @@
       }
     ],
     "responses": {
-      {{Success_200}}
+      {{Success_200}},
+      {{std_error_responses}}
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
@@ -92,7 +97,8 @@
       "responses": {
         "default": {
           "statusCode": "200"
-        }
+        },
+        {{std_error_mappings}}
       },
       "httpMethod": "POST",
       "type": "aws"
@@ -115,7 +121,8 @@
       }
     ],
     "responses": {
-      {{Success_200}}
+      {{Success_200}},
+      {{std_error_responses}}
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
@@ -125,7 +132,8 @@
       "responses": {
         "default": {
           "statusCode": "200"
-        }
+        },
+        {{std_error_mappings}}
       },
       "httpMethod": "POST",
       "type": "aws"
