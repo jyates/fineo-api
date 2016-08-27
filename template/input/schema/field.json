@@ -42,12 +42,16 @@
     {{produce_json}},
     "parameters": [
       {
-        "in": "body",
-        "name": "ReadField",
-        "required": true,
-        "schema": {
-          "$ref": "#/definitions/ReadField"
-        }
+        "name": "metricName",
+        "in": "query",
+        "required": false,
+        "type": "string"
+      },
+      {
+      "name": "fieldName",
+      "in": "query",
+      "required": false,
+      "type": "string"
       }
     ],
     "responses": {
@@ -56,7 +60,9 @@
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      {{inject_org_id_as_template}},
+      "requestTemplates": {
+        "application/json": "{\n    \"orgId\" : \"$context.identity.apiKey\",\n    \"metricName\": \"$input.params('metricName')\",\n    \"fieldName\" : \"$input.params('fieldName')\"\n}\n"
+      },
       "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaFieldRead.function.name}}/invocations",
       "passthroughBehavior": "never",
       "responses": {
