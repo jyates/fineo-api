@@ -22,6 +22,7 @@
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
       {{inject_org_id_as_template}},
+      "credentials": "arn:aws:iam::766732214526:role/apigateway_schema",
       "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaFieldCreate.function.name}}/invocations",
       "passthroughBehavior": "never",
       "responses": {
@@ -60,6 +61,7 @@
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
+      "credentials": "arn:aws:iam::766732214526:role/apigateway_schema",
       "requestTemplates": {
         "application/json": "{\n    \"orgId\" : \"$context.identity.apiKey\",\n    \"metricName\": \"$input.params('metricName')\",\n    \"fieldName\" : \"$input.params('fieldName')\"\n}\n"
       },
@@ -98,6 +100,7 @@
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
       {{inject_org_id_as_template}},
+      "credentials": "arn:aws:iam::766732214526:role/apigateway_schema",
       "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaFieldUpdate.function.name}}/invocations",
       "passthroughBehavior": "never",
       "responses": {
@@ -133,6 +136,7 @@
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
       {{inject_org_id_as_template}},
+      "credentials": "arn:aws:iam::766732214526:role/apigateway_schema",
       "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaFieldDelete.function.name}}/invocations",
       "passthroughBehavior": "never",
       "responses": {
