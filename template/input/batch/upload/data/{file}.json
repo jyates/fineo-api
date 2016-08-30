@@ -36,8 +36,8 @@
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      "credentials": "{{batch.credentials.upload}}",
-      "uri": "arn:aws:apigateway:us-east-1:s3:path/batch.fineo.io/ingest/{user}_{file}",
+      "credentials": "arn:aws:iam::766732214526:role/{{api.batch.roles.upload-data}}",
+      "uri": "arn:aws:apigateway:us-east-1:s3:path/{{api.batch.notify.local-s3.bucket}}{{api.batch.notify.local-s3.prefix}}/{user}_{file}",
       "passthroughBehavior": "when_no_match",
       "responses": {
         "\\d{3}": {

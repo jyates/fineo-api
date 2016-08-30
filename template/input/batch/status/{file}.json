@@ -36,7 +36,7 @@
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      "credentials": "{{batch.credentials.status}}",
+      "credentials": "arn:aws:iam::766732214526:role/{{api.batch.roles.status}}",
       "uri": "arn:aws:apigateway:us-east-1:s3:path/batch.fineo.io/ingest/{user}_{file}",
       "passthroughBehavior": "never",
       "responses": {
