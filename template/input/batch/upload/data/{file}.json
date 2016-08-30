@@ -32,7 +32,13 @@
       }
     ],
     "responses": {
-      {{Success_200}}
+      {{Success_200}},
+      "400": {
+        "description": "400 response",
+        "schema": {
+          "$ref": "#/definitions/Error"
+        }
+      }
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
@@ -40,8 +46,14 @@
       "uri": "arn:aws:apigateway:us-east-1:s3:path/{{api.batch.notify.local-s3.bucket}}{{api.batch.notify.local-s3.prefix}}/{user}_{file}",
       "passthroughBehavior": "when_no_match",
       "responses": {
-        "\\d{3}": {
-          "statusCode": "200"
+        "default": {
+          "statusCode": "200",
+          "responseTemplates": {
+            "application/json": "#set($inputRoot = $input.path('$'))\n{ }"
+          }
+        },
+        "4\\d{2}": {
+          "statusCode": "400"
         }
       },
       "requestParameters": {
