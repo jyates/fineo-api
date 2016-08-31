@@ -1,5 +1,6 @@
 {
   "type": "object",
+  "description": "Remote S3 file to batch read. Format: s3://<bucket>/<file key>",
   "properties": {
     "FilePath": {
       "type": "string"
