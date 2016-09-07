@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "required": [
+  ],
+  "properties": {
+    "timestampPatterns": {
+      "type": "array",
+      "items": "string",
+      "description": "Timestamp field patterns or names of patterns. See documentation for valid pattern names and how to construct your own pattern"
+    },
+    "metricKeys": {
+      "type": "array",
+      "items": "string",
+      "description": "Alternative keys to identify the metric type. E.g. rather than using the default 'metrictype', you could specifiy 'myfield' and have the column: 'myfield' : 'mymetric'. See documentation for more information on how this works."
+    }
+  },
+  "description": "Update top level schema handling"
+}

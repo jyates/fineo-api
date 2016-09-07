@@ -1,0 +1,70 @@
+{
+  "get": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      "credentials": "arn:aws:iam::766732214526:role/apigateway_schema",
+      "requestTemplates": {
+      "application/json": "{\n    \"type\": \"get\",\n    \"get\": {\n      \"orgId\": \"$context.identity.apiKey\"\n    }\n}"
+      },
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaOrg.function.name}}/invocations",
+      "passthroughBehavior": "never",
+      "responses": {
+        "default": {
+          "statusCode": "200"
+        },
+        {{std_error_mappings}}
+      },
+      "httpMethod": "POST",
+      "type": "aws"
+    }
+  },
+  "patch": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "in": "body",
+        "name": "UpdateSchema",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/UpdateSchema"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      "requestTemplates": {
+        "application/json": "{\n    \"type\" : \"patch\",\n    \"orgId\" : \"$context.identity.apiKey\",\n    \"patch\" : $input.json('$')\n}"
+      },
+      "credentials": "arn:aws:iam::766732214526:role/apigateway_schema",
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaOrg.function.name}}/invocations",
+      "passthroughBehavior": "never",
+      "responses": {
+        "default": {
+          "statusCode": "200"
+        },
+        {{std_error_mappings}}
+      },
+      "httpMethod": "POST",
+      "type": "aws"
+    }
+  }
+}
