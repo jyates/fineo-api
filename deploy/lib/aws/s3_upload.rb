@@ -11,7 +11,7 @@ class FineoApi::S3Upload
   def upload(source, bucket, key)
     source = File.absolute_path(source)
     s3_full_name = File.join("s3://", bucket, key)
-    puts "Uploading #{source} \n\t -> #{s3_full_name}...." if @verbose
+    puts "   Uploading #{source} \n\t -> #{s3_full_name}...." if @verbose
 
     # fix the bucket name/prefix to match the s3 format
     parts = bucket.split "/"

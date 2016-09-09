@@ -8,17 +8,19 @@ require 'deploying'
 include Deploying
 
 options = parse(ARGV)
-
 deployer = get_deployer(options)
 input = File.absolute_path(options.input)
 
 # no specified API, deploy them all
 if options.api.nil?
-  Dir["#{input}/*-swagger-integrations,authorizers.json"].each { |api|
+  specs = Dir["#{input}/*-swagger-integrations,authorizers.json"]
+  raise "No API specifications found at #{input}" if specs.empty?
+  specs.each { |api|
     parts = File.basename(api).split "-"
     name = parts[0]
     next if name == "api" # skip the customer focused version
     id = Apis[name]
+    puts "#{name.capitalize}" if options.verbose
     deployer.deploy(name, api, id)
   }
 else
