@@ -50,7 +50,7 @@
       "requestParameters": {
         "integration.request.querystring.TopicArn": "'arn:aws:sns:us-east-1:766732214526:{{api.batch.notify.remote-topic}}'",
         "integration.request.querystring.Subject": "context.identity.apiKey",
-        "integration.request.querystring.Message": "method.request.body.FilePath"
+        "integration.request.querystring.Message": "method.request.body.filePath"
       },
       "httpMethod": "POST",
       "type": "aws"
