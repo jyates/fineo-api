@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "properties": {
+    "failedRecordCount": {
+      "type": "number",
+      "miniumum": 0
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/EventResult"
+      }
+    }
+  },
+  "description": "Results from the a streaming upload of multiple events. Each request event has a relative response EventResult in the records array"
+}

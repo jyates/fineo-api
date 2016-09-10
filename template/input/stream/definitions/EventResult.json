@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "properties": {
+    "ErrorCode": {
+      "type": "string"
+    },
+    "ErrorMessage": {
+      "type": "string"
+    }
+  },
+  "description": "Information about possible error for a record"
+}

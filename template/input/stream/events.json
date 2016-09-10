@@ -1,14 +1,10 @@
 {
   "put": {
     "tags": [
-      "stream"
+      "{{ parent }}"
     ],
-    "consumes": [
-      "application/json"
-    ],
-    "produces": [
-      "application/json"
-    ],
+    {{consume_json}},
+    {{produce_json}},
     "parameters": [
       {
         "in": "body",
@@ -21,23 +17,13 @@
     ],
     "responses": {
       "200": {
-        "description": "200 response",
+        "statusCode": "200",
         "schema": {
-          "$ref": "#/definitions/Empty"
+          "$ref": "#/definitions/StreamEventsResponse"
         }
       },
-      "400": {
-        "description": "400 response",
-        "schema": {
-          "$ref": "#/definitions/Error"
-        }
-      },
-      "500": {
-        "description": "500 response",
-        "schema": {
-          "$ref": "#/definitions/Error"
-        }
-      }
+      {{Error_400}},
+      {{Error_500}}
     },
     "security": [
       {
@@ -56,12 +42,15 @@
       "passthroughBehavior": "never",
       "responses": {
         "200": {
-          "statusCode": "200"
+          "statusCode": "200",
+          "responseTemplates": {
+            "application/json": "{ \n    \"failedRecordCount\": input.path('$.FailedRecordCount'),\n    \"records\" : input.path('$.Records')\n}"
+          }
         },
-        "400": {
+        "4\\d{2}": {
           "statusCode": "400"
         },
-        "500": {
+        "5\\d{2}": {
           "statusCode": "500"
         }
       },
