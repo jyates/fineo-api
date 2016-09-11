@@ -44,7 +44,7 @@
         "200": {
           "statusCode": "200",
           "responseTemplates": {
-            "application/json": "{ \n    \"failedRecordCount\": input.path('$.FailedRecordCount'),\n    \"records\" : input.path('$.Records')\n}"
+            "application/json": "#set($inputRoot = $input.path('$'))\n{ \n    \"failedRecordCount\": $inputRoot.FailedRecordCount,\n    \"records\" : $inputRoot.Records\n}"
           }
         },
         "4\\d{2}": {
