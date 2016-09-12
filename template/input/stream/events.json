@@ -22,40 +22,21 @@
           "$ref": "#/definitions/StreamEventsResponse"
         }
       },
-      {{Error_400}},
-      {{Error_500}}
+      {{std_error_responses}}
     },
-    "security": [
-      {
-        "sigv4": []
-      },
-      {
-        "api_key": []
-      }
-    ],
+    {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      "credentials": "{{api.stream.kinesis.credentials}}",
+      "credentials": "{{api.stream.credentials}}",
       "requestTemplates": {
-        "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.companykey = $orgID)\n{\n    \"StreamName\": \"{{api.stream.kinesis.stream}}\",\n    \"Records\": [\n        #foreach($elem in $bodyJson)\n{\n            #set($elem.companykey = $orgID)\n            \"Data\": \"$util.base64Encode($elem)\",\n            \"PartitionKey\": \"$orgID\"\n        }#if($foreach.hasNext),#end\n        #end\n    ]\n}\n"
+        "application/json": "#set($orgID = $context.identity.apiKey)\n{\n    \"companykey\": \"$orgID\",\n    \"events\": $input.json('$')\n}"
       },
-      "uri": "arn:aws:apigateway:us-east-1:kinesis:action/PutRecords",
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.IngestToRawLambda.function.name}}/invocations",
       "passthroughBehavior": "never",
       "responses": {
-        "200": {
-          "statusCode": "200",
-          "responseTemplates": {
-            "application/json": "#set($inputRoot = $input.path('$'))\n{ \n    \"failedRecordCount\": $inputRoot.FailedRecordCount,\n    \"records\" : $inputRoot.Records\n}"
-          }
+        "default": {
+          "statusCode": "200"
         },
-        "4\\d{2}": {
-          "statusCode": "400"
-        },
-        "5\\d{2}": {
-          "statusCode": "500"
-        }
-      },
-      "requestParameters": {
-        "integration.request.header.Content-Type": "'application/x-amz-json-1.1'"
+        {{std_error_mappings}}
       },
       "httpMethod": "POST",
       "type": "aws"
