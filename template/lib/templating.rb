@@ -67,6 +67,44 @@ module Templating
     end.parse!(args)
   end
 
+  def template_batch(name, root, assignments, templates, suffix, options)
+    input_dir = options[:input]
+    output = options[:output]
+
+    # load the assignments for the group
+    templates.each{|template|
+      assignments = assignments.deep_merge get_assigns(options[template.to_sym])
+    }
+    info = TemplateInfo.new(root, assignments, input_dir)
+
+    # convert the templates into their actual directories
+    dirs = []
+    Dir.glob(File.join(input_dir, "/*")).each{|dir|
+      next unless File.directory?(dir)
+
+      file_name = File.basename(dir)
+      next if file_name == Templates::INCLUDES || file_name == Templates::DEFINITIONS
+      next unless templates.include? file_name
+      dirs << dir
+    }
+
+    template_sources(info, name, output, dirs, suffix)
+  end
+
+  # Template a single API
+  # * *Returns* :
+  #   - assignments generate from loading this api
+  def template_api(name, root, options)
+    return {} if options[name].nil?
+    assigns = get_assigns(options[name])
+    require 'pp'
+    info = TemplateInfo.new(root, assigns, options[:input])
+    template(info, options[:output], name.to_s)
+    assigns
+  end
+
+private
+
   def get_assigns(props)
     case props
       when String
@@ -79,15 +117,6 @@ module Templating
       when nil
         raise "Must provide a properties file!"
     end
-    assigns
-  end
-
-  def template_api(name, root, options)
-    return {} if options[name].nil?
-    assigns = get_assigns(options[name])
-    require 'pp'
-    info = TemplateInfo.new(root, assigns, options[:input])
-    template(info, options[:output], name.to_s)
     assigns
   end
 

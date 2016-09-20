@@ -17,9 +17,7 @@
       "description": "Standard SQL type for the field. See documentation for valid types."
     },
     "aliases":{
-      "type": "array",
-      "items": "string",
-      "description" : "Write aliases for the field. E.g. T, Tmp and Temp could be aliases for a field named 'Temperature'"
+      "$ref": "#/definitions/alias_array"
     }
   },
   "description": "Add a field to a metric type"

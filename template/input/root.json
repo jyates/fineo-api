@@ -1,11 +1,19 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2016-08-05T01:18:49Z",
-    "title": "{{ api.title }}"
+    "version": "{{ api.version }}",
+    "title": "{{ api.title }}",
+    "contact": {
+      "name": "Fineo",
+      "url": "http://fineo.io",
+      "email": "help@fineo.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
   },
   "host": "{{ api.host }}",
-  "title": "{{ api.title }}",
   "basePath": "/{{ api.version }}",
   "schemes": [
     "https"

@@ -3,7 +3,7 @@
   "properties": {
     "failedRecordCount": {
       "type": "number",
-      "miniumum": 0
+      "minimum": 0
     },
     "records": {
       "type": "array",

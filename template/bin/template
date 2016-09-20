@@ -5,7 +5,20 @@ File.expand_path(File.join(__dir__, "..", "lib")).tap {|pwd|
   $LOAD_PATH.unshift(pwd) unless $LOAD_PATH.include?(pwd)
 }
 
+require 'ostruct'
+
 APIS = ["stream", "batch", "read", "schema", "schema_internal"]
+
+API_GROUPS ={
+  "ingest" => OpenStruct.new(title: "fineo-ingest",
+                             version: "v1",
+                             host: "ingest.fineo.io",
+                             req: ["stream", "batch"]),
+  "schema" => OpenStruct.new(title: "fineo-ingest",
+                             version: "v1",
+                             host: "schema.fineo.io",
+                             req: ["schema"])
+}
 
 # Apis that should not be present in the external swagger docs
 EXTERNAL_EXCLUDES = [
@@ -22,26 +35,25 @@ options = {
   :input =>  File.join(current, "..", "input")
 }
 parse(ARGV, options)
-
 root = File.join(options[:input], "root.json")
 
 # templating each api
-assigns = {}
-APIS.each{|api|
-  assignments = template_api(api.to_sym, root, options)
-  assigns = assigns.deep_merge assignments
-}
+unless options[:external]
+  APIS.each{|api|
+    puts "Templating internal apis: #{api}" if options[:verbose]
+    template_api(api.to_sym, root, options)
+  }
+else
+  puts "Templating external apis..." if options[:verbose]
+  # only publish the externally visible APIs
+  APIS.keep_if{|name| !EXTERNAL_EXCLUDES.include? name}
 
-exit unless options[:external]
+  # combined, for the documentation
+  # override the common properties to something that makes sense
+  API_GROUPS.each{|name, api|
+      assignments = {"api" => api}
+      template_batch(name, root, assignments, api.req, "swagger.json", options)
+  }
+end
 
-# combined, for the documentation
-# override the common properties to something that makes sense
-api = OpenStruct.new(title: "fineo-api",
-                      host: "write.fineo.io",
-                      version: "v1")
-assigns["api"] = api
-# only publish the externally visible APIs
-APIS.keep_if{|name| !EXTERNAL_EXCLUDES.include? name}
-#actually do the templating
-info = TemplateInfo.new(root, assigns, options[:input])
-template_sources(info, "api", options[:output], APIS, "swagger.json")
+

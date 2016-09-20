@@ -1,0 +1,7 @@
+{
+  "type": "array",
+  "items": {
+    "type": "string"
+  },
+  "description": "Timestamp field patterns or names of patterns. See documentation for valid pattern names and how to construct your own pattern"
+}
