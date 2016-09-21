@@ -4,7 +4,6 @@ end
 
 require 'optparse'
 require 'ostruct'
-require 'apis'
 require 'aws/aws_util'
 require 'aws/s3_upload'
 require 's3_deployer'
@@ -14,6 +13,7 @@ module Deploying
   def parse(args)
     options = OpenStruct.new
     options.s3 = "deploy.fineo.io/api"
+    options.api = []
 
     OptionParser.new do |opts|
       opts.banner = "Usage: deploy [options]"
@@ -24,13 +24,12 @@ module Deploying
         options.input = dir
       end
 
-      opts.on("-o", "--output DIRECTORY", "Output directory for the cloudformation template "+
-        "update files") do |dir|
+      opts.on("-o", "--output DIRECTORY", "Output directory for the configuration update files") do |dir|
         options.output = dir
       end
 
-      opts.on("-a", "--api NAME", "Name of the api to deploy. By default, deploys all apis") do |name|
-        options.api = name
+      opts.on("-a", "--api NAME", "Name of the api to deploy. REPEATABLE") do |name|
+        options.api << name
       end
 
       opts.on("--s3 LOCATION", "S3 bucket + object to which we should deploy. Default: "+
@@ -45,18 +44,6 @@ module Deploying
 
       opts.on("--credentials FILE", "Credentials file to use for upload") do |creds|
         options.creds = creds
-      end
-
-      opts.on("--really-force-api-deployment", "WARNING: Only used for unusual circumstances. \n"+
-        "Forces the deployment of the api directly to AWS Api Gateway, rather than just pushing "+
-        "updated schema file, generating a change set and waiting for a cloud template change.") do |force|
-        puts "  --------  WARNING --------- "
-        puts " This should only be used in extreme circumstances to force deployment of the api. "
-        puts "Instead, you should just deploy the new API(s) to s3, commit the update to the " +
-        "deployment repository and wait for a cloudformation template update."
-        puts " *** You have bee warned *** "
-        puts "  --------  WARNING --------- "
-        options.force = true
       end
 
       opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|

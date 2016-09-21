@@ -18,9 +18,10 @@ class FineoApi::S3Deployer
     end
     @output = options.output
     @updates = []
+    @verbose = options.verbose
   end
 
-  def deploy(name, api, id)
+  def deploy(name, api)
      base = File.basename(api)
     if @test
       config = @props[name]
@@ -37,18 +38,21 @@ class FineoApi::S3Deployer
   end
 
   def flush()
+    updates = {}
+    FileUtils.mkdir_p @output
+    file = File.join(@output, "updates.json")
     @updates.each{|update|
+      # Each api gets its own parent, which in thrun updates the stack by name... kinda weird, but that's how we layed out configuration
       name =  update["name"]
       change = update["api"]
-      FileUtils.mkdir_p @output
-      file = File.join(@output, "#{name}-update.json")
-
       out = {"api" => {name =>change}}
-
-      File.open(file, "w") do |f|
-        f.write(JSON.pretty_generate(out))
-      end
+      updates[name] = out
     }
+
+    puts "Writing updates to: #{file}" if @verbose
+    File.open(file, "w") do |f|
+      f.write(JSON.pretty_generate(updates))
+    end
   end
 
 private
