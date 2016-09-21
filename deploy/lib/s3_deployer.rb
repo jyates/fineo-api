@@ -30,7 +30,7 @@ class FineoApi::S3Deployer
     else
       parts = @bucket.split "/"
       bucket = parts.shift
-      key = File.join(parts, @now.to_s, name, base)
+      key = File.join(parts, name, @now.to_s, base)
     end
     s3 = @s3.upload(api, bucket, key)
 
