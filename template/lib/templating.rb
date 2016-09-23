@@ -47,11 +47,6 @@ module Templating
         options[:schema_internal] = stream
       end
 
-      opts.on("--read props,overrides", Array, "Comma separated properties/overrides for the "+
-        "read api") do |stream|
-        options[:schema] = stream
-      end
-
       opts.on("--external", "Publish the external API. Uses the above provided properties") do |e|
         options[:external] = true
       end
