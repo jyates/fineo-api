@@ -23,10 +23,6 @@ module Templating
         FileUtils.mkdir_p v
       end
 
-      opts.on("-i", "--input DIRECTORY", "Input directory. Default: #{options[:input]}") do |v|
-        options[:input] = v
-      end
-
       opts.on("--stream props,overrides", Array, "Comma separated properties/overrides for the "+
         "stream api") do |stream|
         options[:stream] = stream
