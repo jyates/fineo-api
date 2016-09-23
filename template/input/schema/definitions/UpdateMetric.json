@@ -12,10 +12,10 @@
       "description": "Name of the field to use when doing reads"
     },
     "aliases":{
-      "$ref": "#/definitions/alias_array"
+      "$ref": "#/definitions/aliasArray"
     },
     "timestampPatterns": {
-      "$ref": "#/definitions/timestamp_patterns"
+      "$ref": "#/definitions/timestampPatterns"
     }
   },
   "description": "Update a metric type"

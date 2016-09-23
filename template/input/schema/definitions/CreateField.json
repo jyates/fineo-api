@@ -17,7 +17,7 @@
       "description": "Standard SQL type for the field. See documentation for valid types."
     },
     "aliases":{
-      "$ref": "#/definitions/alias_array"
+      "$ref": "#/definitions/aliasArray"
     }
   },
   "description": "Add a field to a metric type"

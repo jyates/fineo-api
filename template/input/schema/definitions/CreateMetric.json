@@ -8,7 +8,7 @@
       "type": "string"
     },
     "aliases":{
-      "$ref": "#/definitions/alias_array"
+      "$ref": "#/definitions/aliasArray"
     }
   },
   "description": "Create a metric type (e.g. table)"

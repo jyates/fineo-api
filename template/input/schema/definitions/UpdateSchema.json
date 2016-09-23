@@ -2,7 +2,7 @@
   "type": "object",
   "properties": {
     "timestampPatterns": {
-      "$ref": "#/definitions/timestamp_patterns"
+      "$ref": "#/definitions/timestampPatterns"
     },
     "metricKeys": {
       "type": "array",
