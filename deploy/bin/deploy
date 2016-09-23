@@ -15,6 +15,7 @@ input = File.absolute_path(options.input)
 raise "No specified api!" if options.api.empty?
 # just deploy the specified api(s)
 options.api.each{|name|
+  name = name.gsub("-", "_")
   deployer.deploy(name, "#{input}/#{name}-swagger-integrations,authorizers.json")
 }
 
