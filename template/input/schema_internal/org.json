@@ -21,7 +21,7 @@
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      "credentials": "arn:aws:iam::766732214526:role/apigateway_schema",
+      "credentials": "arn:aws:iam::766732214526:role/{{api.schema_internal.credentials}}",
       "requestTemplates": {
         "application/json": "{\n    \"orgId\" :\"$input.path('$.orgId')\"\n }\n"
       },
