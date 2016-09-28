@@ -46,7 +46,8 @@ class FineoApi::S3Deployer
       name =  update["name"]
       change = update["api"]
       out = {"api" => {name =>change}}
-      updates[name] = out
+      # stack name is dash, not underscore, so switch it for the final update info
+      updates[name.gsub("_", "-")] = out
     }
 
     puts "Writing updates to: #{file}" if @verbose
@@ -62,7 +63,6 @@ private
     parts = file.split "/"
     bucket = parts.shift
     key = File.join(parts)
-    name.gsub!("_", "-") # handle the schema-internal/schema_internal dichotomy
     update = {"name" => name, "api" =>{
       "s3" =>{
         "bucket" => bucket,
