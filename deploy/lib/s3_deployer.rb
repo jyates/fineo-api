@@ -62,6 +62,7 @@ private
     parts = file.split "/"
     bucket = parts.shift
     key = File.join(parts)
+    name.gsub!("_", "-") # handle the schema-internal/schema_internal dichotomy
     update = {"name" => name, "api" =>{
       "s3" =>{
         "bucket" => bucket,
