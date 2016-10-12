@@ -63,7 +63,7 @@
     "x-amazon-apigateway-integration": {
       "credentials": "arn:aws:iam::766732214526:role/{{api.schema.credentials}}",
       "requestTemplates": {
-        "application/json": "{\n    \"orgId\" : \"$context.identity.apiKey\",\n    \"metricName\": \"$input.params('metricName')\",\n    \"fieldName\" : \"$input.params('fieldName')\"\n}\n"
+        "application/json": "{\n    \"orgId\" : \"$context.identity.apiKey\",\n    \"body\": {\n   \"metricName\": \"$input.params('metricName')\",\n    \"fieldName\" : \"$input.params('fieldName')\"\n}\n}\n"
       },
       "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaFieldRead.function.name}}/invocations",
       "passthroughBehavior": "never",

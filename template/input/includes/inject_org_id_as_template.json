@@ -1,3 +1,3 @@
 "requestTemplates": {
-  "application/json": "#set($orgID = $context.identity.apiKey)\n#set($bodyJson = $util.parseJson($input.body))\n#set($bodyJson.orgId = $orgID)\n{\n    #foreach($key in $bodyJson.keySet())\n    #set($params = $allParams.get($type))\n    \"$key\" : \"$bodyJson[$key]\"#if($foreach.hasNext),#end\n    #end\n}\n    "
+  "application/json": "#set($orgID = $context.identity.apiKey)\n{\n    \"orgId\": \"$orgID\",\n   \"body\" : $input.json('$')\n}"
 }
