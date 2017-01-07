@@ -1,0 +1,8 @@
+{
+  "in": "body",
+  "name": "SingleStreamEvent",
+  "required": true,
+  "schema": {
+    "$ref": "#/definitions/SingleStreamEvent"
+  }
+}

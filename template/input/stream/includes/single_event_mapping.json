@@ -1,0 +1,16 @@
+"x-amazon-apigateway-integration": {
+  "credentials": "{{api.stream.credentials}}",
+  "requestTemplates": {
+    "application/json": "#set($orgID = $context.identity.apiKey)\n{\n    \"customerKey\": \"$orgID\",\n    \"event\": $input.json('$')\n}"
+  },
+  "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.IngestToRawLambda.function.name}}/invocations",
+  "passthroughBehavior": "never",
+  "responses": {
+    "default": {
+      "statusCode": "200"
+    },
+    {{std_error_mappings}}
+  },
+  "httpMethod": "POST",
+  "type": "aws"
+}

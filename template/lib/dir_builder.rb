@@ -41,8 +41,9 @@ private
       paths.merge! procdir(dir, definitions, includes)
     }
 
+    # just read in each file, to be templated later
     files.each{|file|
-      paths[file] = template_file(file, includes)
+      paths[file] = File.read(file);
     }
     return paths
   end

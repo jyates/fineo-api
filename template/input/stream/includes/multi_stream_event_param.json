@@ -1,0 +1,8 @@
+{
+  "in": "body",
+  "name": "MultiStreamEvent",
+  "required": true,
+  "schema": {
+    "$ref": "#/definitions/MultiStreamEvent"
+  }
+}

@@ -1,5 +1,6 @@
 
 require 'templates'
+require 'deep_merge'
 require 'dir_builder'
 require 'json'
 
@@ -19,6 +20,7 @@ class Templater
     includes = @info.includes
     definitions = @info.definitions
 
+    # need to update the includes values for the templated files
     # Build the paths from the root
     raw_paths = {}
     @parents.each{|name|
@@ -33,19 +35,37 @@ class Templater
       paths[k] = v
     }
 
-    assigned["paths"] = map_names_to_array(paths)
-    assigned["includes"] = includes
     assigned["definitions"] = map_names_to_array(definitions)
-    file = template_file(root, assigned)
+    assigned["includes"] = template_map_content(includes, includes.deep_merge(assigned))
+    puts "---- Templating paths ----"
+    assigned["paths"] = map_names_to_array(template_map_content(paths, assigned["includes"]))
 
-    # pretty print the json - helps with visual validation
-    json = JSON.parse(file)
+    file = template_file(root, assigned)
+    begin
+      # pretty print the json - helps with visual validation
+      json = JSON.parse(file)
+    rescue JSON::ParserError => e
+      output = "#{output}_failed.json"
+      puts "Failed to generate correct json! Writing current state to: #{output}"
+      File.open(output,"w") do |f|
+        f.write(file)
+      end
+      raise e.message.split("\n").first
+    end
     File.open(output,"w") do |f|
       f.write(JSON.pretty_generate(json))
     end
   end
 
 private
+
+  def template_map_content(map, assigned)
+    out = {}
+    map.each{|file, content|
+      out[file] = template_content(content, assigned)
+    }
+    return out
+  end
 
   def map_names_to_array(map)
     map.flat_map{|path, content|

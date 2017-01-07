@@ -1,0 +1,6 @@
+"200": {
+  "description": "Successful update. Still need to check that there were no errors.",
+  "schema": {
+    "$ref": "#/definitions/StreamEventsResponse"
+  }
+}
