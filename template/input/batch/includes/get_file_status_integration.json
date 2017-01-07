@@ -1,0 +1,23 @@
+"x-amazon-apigateway-integration": {
+  "credentials": "arn:aws:iam::766732214526:role/{{api.batch.roles.status}}",
+  "uri": "arn:aws:apigateway:us-east-1:s3:path/batch.fineo.io/ingest/{user}_{file}",
+  "passthroughBehavior": "never",
+  "responses": {
+    "4\\d{2}": {
+      "statusCode": "404"
+    },
+    "default": {
+      "statusCode": "200",
+      "responseParameters": {
+        "method.response.header.Content-Type": "integration.response.header.Content-Type",
+        "method.response.header.Timestamp": "integration.response.header.Date"
+      }
+    }
+  },
+  "requestParameters": {
+    "integration.request.path.user": "context.identity.apiKey",
+    "integration.request.path.file": "method.request.path.file"
+  },
+  "httpMethod": "HEAD",
+  "type": "aws"
+}

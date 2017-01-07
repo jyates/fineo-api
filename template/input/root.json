@@ -27,6 +27,18 @@
       "name": "x-api-key",
       "in": "header"
     },
+    "Fineo-customers": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "x-amazon-apigateway-authtype": "cognito_user_pools",
+      "x-amazon-apigateway-authorizer": {
+        "providerARNs": [
+          "arn:aws:cognito-idp:us-east-1:766732214526:userpool/us-east-1_B5WQVmvFb"
+        ],
+        "type": "cognito_user_pools"
+      }
+    },
     "sigv4": {
       "type": "apiKey",
       "name": "Authorization",

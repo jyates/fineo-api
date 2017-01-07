@@ -6,14 +6,14 @@
     {{consume_json}},
     {{produce_json}},
     "parameters": [
-      {{create_field_parameter}}
+      {{create_metric_parameter}}
     ],
     "responses": {
       {{Success_200}},
       {{std_error_responses}}
     },
-    {{security_key_iam}},
-    {{create_field_integration}}
+    {{security_user_pool}},
+    {{create_metric_integration}}
   },
   "get": {
     "tags": [
@@ -22,14 +22,14 @@
     {{consume_json}},
     {{produce_json}},
     "parameters": [
-      {{get_field_parameter}}
+      {{get_metric_parameter}}
     ],
     "responses": {
       {{Success_200}},
       {{std_error_responses}}
     },
-    {{security_key_iam}},
-    {{get_field_integration}}
+    {{security_user_pool}},
+    {{get_metric_integration}}
   },
   "patch": {
     "tags": [
@@ -38,13 +38,30 @@
     {{consume_json}},
     {{produce_json}},
     "parameters": [
-      {{update_field_parameter}}
+      {{update_metric_parameter}}
     ],
     "responses": {
       {{Success_200}},
       {{std_error_responses}}
     },
-    {{security_key_iam}},
-    {{update_field_integration}}
-  }
+    {{security_user_pool}},
+    {{update_metric_integration}}
+  },
+  "delete": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+    {{delete_metric_parameter}}
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{security_user_pool}},
+    {{delete_metric_integration}}
+  },
+  {{cors_post-get-patch-delete}}
 }

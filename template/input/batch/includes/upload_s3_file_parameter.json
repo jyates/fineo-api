@@ -1,0 +1,8 @@
+{
+  "in": "body",
+  "name": "BatchUploadRemoteS3File",
+  "required": true,
+  "schema": {
+    "$ref": "#/definitions/BatchUploadRemoteS3File"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "metricName",
+  "in": "query",
+  "required": false,
+  "type": "string"
+}

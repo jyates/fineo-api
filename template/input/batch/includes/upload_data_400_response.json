@@ -1,0 +1,6 @@
+"400": {
+  "description": "400 response",
+  "schema": {
+    "$ref": "#/definitions/Error"
+  }
+}

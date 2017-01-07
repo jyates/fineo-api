@@ -1,0 +1,19 @@
+{
+  "put": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {{multi_stream_event_param}}
+    ],
+    "responses": {
+      {{success_200_multi_response}},
+      {{std_error_responses}}
+    },
+    {{security_user_pool}},
+    {{multi_event_mapping}}
+  },
+  {{cors_put}}
+}

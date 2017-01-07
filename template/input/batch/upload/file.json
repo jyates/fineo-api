@@ -10,50 +10,13 @@
       "application/json"
     ],
     "parameters": [
-      {
-        "in": "body",
-        "name": "BatchUploadRemoteS3File",
-        "required": true,
-        "schema": {
-          "$ref": "#/definitions/BatchUploadRemoteS3File"
-        }
-      }
+      {{upload_s3_file_parameter}}
     ],
     "responses": {
       {{Success_200}},
-      "400": {
-        "description": "400 response",
-        "schema": {
-          "$ref": "#/definitions/Error"
-        }
-      }
+      {{upload_s3_file_400_response}}
     },
     {{security_key_iam}},
-    "x-amazon-apigateway-integration": {
-      "credentials": "arn:aws:iam::766732214526:role/{{api.batch.roles.upload-file}}",
-      "requestTemplates": {
-        "application/json": "{ }"
-      },
-      "uri": "arn:aws:apigateway:us-east-1:sns:action/Publish",
-      "passthroughBehavior": "never",
-      "responses": {
-        "default": {
-          "statusCode": "200",
-          "responseTemplates": {
-            "application/json": "#set($inputRoot = $input.path('$'))\n{ }"
-          }
-        },
-        "4\\d{2}": {
-          "statusCode": "400"
-        }
-      },
-      "requestParameters": {
-        "integration.request.querystring.TopicArn": "'arn:aws:sns:us-east-1:766732214526:{{api.batch.notify.remote-topic}}'",
-        "integration.request.querystring.Subject": "context.identity.apiKey",
-        "integration.request.querystring.Message": "method.request.body.filePath"
-      },
-      "httpMethod": "POST",
-      "type": "aws"
-    }
+    {{upload_s3_file_integration}}
   }
 }

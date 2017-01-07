@@ -1,0 +1,8 @@
+{
+  "in": "body",
+  "name": "CreateMetric",
+  "required": true,
+  "schema": {
+    "$ref": "#/definitions/CreateMetric"
+  }
+}

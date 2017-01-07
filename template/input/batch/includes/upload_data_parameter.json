@@ -1,0 +1,20 @@
+{
+  "name": "Content-Type",
+  "in": "header",
+  "required": false,
+  "type": "string"
+},
+{
+"name": "file",
+"in": "path",
+"required": true,
+"type": "string"
+},
+{
+"in": "body",
+"name": "BatchUploadEvents",
+"required": true,
+"schema": {
+"$ref": "#/definitions/BatchUploadEvents"
+}
+}

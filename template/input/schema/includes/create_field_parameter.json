@@ -1,0 +1,8 @@
+{
+  "in": "body",
+  "name": "CreateField",
+  "required": true,
+  "schema": {
+    "$ref": "#/definitions/CreateField"
+  }
+}

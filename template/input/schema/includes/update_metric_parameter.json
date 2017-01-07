@@ -1,0 +1,8 @@
+{
+  "in": "body",
+  "name": "UpdateMetric",
+  "required": true,
+  "schema": {
+    "$ref": "#/definitions/UpdateMetric"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "in": "body",
+  "name": "UpdateSchema",
+  "required": true,
+  "schema": {
+    "$ref": "#/definitions/UpdateSchema"
+  }
+}

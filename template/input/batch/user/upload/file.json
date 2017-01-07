@@ -1,5 +1,5 @@
 {
-  "put": {
+  "post": {
     "tags": [
       "{{ parent }}"
     ],
@@ -10,13 +10,14 @@
       "application/json"
     ],
     "parameters": [
-      {{upload_data_parameter}}
+      {{upload_s3_file_parameter}}
     ],
     "responses": {
       {{Success_200}},
-      {{upload_data_400_response}}
+      {{upload_s3_file_400_response}}
     },
-    {{security_key_iam}},
-    {{upload_data_integration}}
-  }
+    {{security_user_pool}},
+    {{upload_s3_file_integration}}
+  },
+  {{cors_post}}
 }

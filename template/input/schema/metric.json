@@ -6,34 +6,14 @@
     {{consume_json}},
     {{produce_json}},
     "parameters": [
-      {
-        "in": "body",
-        "name": "CreateMetric",
-        "required": true,
-        "schema": {
-          "$ref": "#/definitions/CreateMetric"
-        }
-      }
+      {{create_metric_parameter}}
     ],
     "responses": {
       {{Success_200}},
       {{std_error_responses}}
     },
     {{security_key_iam}},
-    "x-amazon-apigateway-integration": {
-      {{inject_org_id_as_template}},
-      "credentials": "arn:aws:iam::766732214526:role/{{api.schema.credentials}}",
-      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaMetricCreate.function.name}}/invocations",
-      "passthroughBehavior": "never",
-      "responses": {
-        "default": {
-          "statusCode": "200"
-        },
-        {{std_error_mappings}}
-      },
-      "httpMethod": "POST",
-      "type": "aws"
-    }
+    {{create_metric_integration}}
   },
   "get": {
     "tags": [
@@ -42,34 +22,14 @@
     {{consume_json}},
     {{produce_json}},
     "parameters": [
-      {
-        "name": "metricName",
-        "in": "query",
-        "required": false,
-        "type": "string"
-      }
+      {{get_metric_parameter}}
     ],
     "responses": {
       {{Success_200}},
       {{std_error_responses}}
     },
     {{security_key_iam}},
-    "x-amazon-apigateway-integration": {
-      "credentials": "arn:aws:iam::766732214526:role/{{api.schema.credentials}}",
-      "requestTemplates": {
-        "application/json": "{\n    \"orgId\" : \"$context.identity.apiKey\",\n    \"body\": {\n   \"metricName\" : \"$input.params('metricName')\"\n}\n}\n"
-      },
-      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaMetricRead.function.name}}/invocations",
-      "passthroughBehavior": "never",
-      "responses": {
-        "default": {
-          "statusCode": "200"
-        },
-          {{std_error_mappings}}
-      },
-      "httpMethod": "POST",
-      "type": "aws"
-    }
+    {{get_metric_integration}}
   },
   "patch": {
     "tags": [
@@ -78,34 +38,14 @@
     {{consume_json}},
     {{produce_json}},
     "parameters": [
-      {
-        "in": "body",
-        "name": "UpdateMetric",
-        "required": true,
-        "schema": {
-          "$ref": "#/definitions/UpdateMetric"
-        }
-      }
+      {{update_metric_parameter}}
     ],
     "responses": {
       {{Success_200}},
       {{std_error_responses}}
     },
     {{security_key_iam}},
-    "x-amazon-apigateway-integration": {
-      {{inject_org_id_as_template}},
-      "credentials": "arn:aws:iam::766732214526:role/{{api.schema.credentials}}",
-      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaMetricUpdate.function.name}}/invocations",
-      "passthroughBehavior": "never",
-      "responses": {
-        "default": {
-          "statusCode": "200"
-        },
-          {{std_error_mappings}}
-      },
-      "httpMethod": "POST",
-      "type": "aws"
-    }
+    {{update_metric_integration}}
   },
   "delete": {
     "tags": [
@@ -114,33 +54,13 @@
     {{consume_json}},
     {{produce_json}},
     "parameters": [
-      {
-        "in": "body",
-        "name": "DeleteMetric",
-        "required": true,
-        "schema": {
-          "$ref": "#/definitions/DeleteMetric"
-        }
-      }
+    {{delete_metric_parameter}}
     ],
     "responses": {
       {{Success_200}},
       {{std_error_responses}}
     },
     {{security_key_iam}},
-    "x-amazon-apigateway-integration": {
-      {{inject_org_id_as_template}},
-      "credentials": "arn:aws:iam::766732214526:role/{{api.schema.credentials}}",
-      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaMetricDelete.function.name}}/invocations",
-      "passthroughBehavior": "never",
-      "responses": {
-        "default": {
-          "statusCode": "200"
-        },
-          {{std_error_mappings}}
-      },
-      "httpMethod": "POST",
-      "type": "aws"
-    }
+    {{delete_metric_integration}}
   }
 }

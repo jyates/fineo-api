@@ -1,0 +1,8 @@
+{
+  "in": "body",
+  "name": "UpdateField",
+  "required": true,
+  "schema": {
+    "$ref": "#/definitions/UpdateField"
+  }
+}

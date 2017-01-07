@@ -19,17 +19,8 @@ module Templates
   end
 
   def template_content(content, assigned)
-    includes = assigned["includes"]
-    unless includes.nil?
-      out = includes["single_event_mapping"]
-      puts "(templater) Single event mapping: #{out}" unless out.nil?
-    end
-
-    puts "Templating content: \n#{content}"
-    Liquid::Template.error_mode = :strict
-    template = Liquid::Template.parse(content)
-    # puts "assigned: \n #{assigned}"
-    output = template.render(assigned)
+    template = Liquid::Template.parse(content, :error_mode => :strict)
+    output = template.render!(assigned, { strict_variables: true})
     puts template.errors
     return output
   end

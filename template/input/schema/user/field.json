@@ -12,7 +12,7 @@
       {{Success_200}},
       {{std_error_responses}}
     },
-    {{security_key_iam}},
+    {{security_user_pool}},
     {{create_field_integration}}
   },
   "get": {
@@ -28,7 +28,7 @@
       {{Success_200}},
       {{std_error_responses}}
     },
-    {{security_key_iam}},
+    {{security_user_pool}},
     {{get_field_integration}}
   },
   "patch": {
@@ -44,7 +44,8 @@
       {{Success_200}},
       {{std_error_responses}}
     },
-    {{security_key_iam}},
+    {{security_user_pool}},
     {{update_field_integration}}
-  }
+  },
+  {{cors_post-get-patch}}
 }

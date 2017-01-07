@@ -37,7 +37,6 @@ class Templater
 
     assigned["definitions"] = map_names_to_array(definitions)
     assigned["includes"] = template_map_content(includes, includes.deep_merge(assigned))
-    puts "---- Templating paths ----"
     assigned["paths"] = map_names_to_array(template_map_content(paths, assigned["includes"]))
 
     file = template_file(root, assigned)

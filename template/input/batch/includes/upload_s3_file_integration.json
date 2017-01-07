@@ -1,0 +1,26 @@
+"x-amazon-apigateway-integration": {
+  "credentials": "arn:aws:iam::766732214526:role/{{api.batch.roles.upload-file}}",
+  "requestTemplates": {
+    "application/json": "{ }"
+  },
+  "uri": "arn:aws:apigateway:us-east-1:sns:action/Publish",
+  "passthroughBehavior": "never",
+  "responses": {
+    "default": {
+      "statusCode": "200",
+      "responseTemplates": {
+        "application/json": "#set($inputRoot = $input.path('$'))\n{ }"
+      }
+    },
+    "4\\d{2}": {
+      "statusCode": "400"
+    }
+  },
+  "requestParameters": {
+    "integration.request.querystring.TopicArn": "'arn:aws:sns:us-east-1:766732214526:{{api.batch.notify.remote-topic}}'",
+    "integration.request.querystring.Subject": "context.identity.apiKey",
+    "integration.request.querystring.Message": "method.request.body.filePath"
+  },
+  "httpMethod": "POST",
+  "type": "aws"
+}

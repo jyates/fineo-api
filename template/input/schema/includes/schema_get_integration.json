@@ -1,0 +1,16 @@
+"x-amazon-apigateway-integration": {
+  "credentials": "arn:aws:iam::766732214526:role/{{api.schema.credentials}}",
+  "requestTemplates": {
+    "application/json": "{\n    \"type\": \"get\",\n    \"get\": { },\n     \"orgId\": \"$context.identity.apiKey\"\n }"
+  },
+  "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaOrg.function.name}}/invocations",
+  "passthroughBehavior": "never",
+  "responses": {
+    "default": {
+      "statusCode": "200"
+    },
+    {{std_error_mappings}}
+  },
+  "httpMethod": "POST",
+  "type": "aws"
+}

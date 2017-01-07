@@ -16,7 +16,8 @@
       {{Success_200}},
       {{upload_data_400_response}}
     },
-    {{security_key_iam}},
+    {{security_user_pool}},
     {{upload_data_integration}}
-  }
+  },
+  {{cors_put}}
 }

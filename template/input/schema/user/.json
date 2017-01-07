@@ -11,7 +11,7 @@
       {{Success_200}},
       {{std_error_responses}}
     },
-    {{security_key_iam}},
+    {{security_user_pool}},
     {{schema_get_integration}}
   },
   "patch": {
@@ -27,7 +27,8 @@
       {{Success_200}},
       {{std_error_responses}}
     },
-    {{security_key_iam}},
+    {{security_user_pool}},
     {{update_schema_integration}}
-  }
+  },
+  {{cors_get-patch}}
 }

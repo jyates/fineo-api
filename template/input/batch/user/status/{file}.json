@@ -11,7 +11,8 @@
       {{get_file_status_parameter}}
     ],
     {{get_file_status_responses}},
-    {{security_key_iam}},
+    {{security_user_pool}},
     {{get_file_status_integration}}
-  }
+  },
+  {{cors_get}}
 }
