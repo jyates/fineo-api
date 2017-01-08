@@ -1,0 +1,17 @@
+{
+  "get": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{security_key_iam}},
+    {{get_metrics_integration}}
+    }
+}
