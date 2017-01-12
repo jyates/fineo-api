@@ -1,0 +1,146 @@
+{
+  "post": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "in": "body",
+        "name": "CreateMetric",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/CreateMetric"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{inject_org_id_as_template}},
+      "credentials": "arn:aws:iam::766732214526:role/{{api.schema.credentials}}",
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaMetricCreate.function.name}}/invocations",
+      "passthroughBehavior": "never",
+      "responses": {
+        "default": {
+          "statusCode": "200"
+        },
+        {{std_error_mappings}}
+      },
+      "httpMethod": "POST",
+      "type": "aws"
+    }
+  },
+  "get": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "name": "metricName",
+        "in": "query",
+        "required": false,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      "credentials": "arn:aws:iam::766732214526:role/{{api.schema.credentials}}",
+      "requestTemplates": {
+        "application/json": "{\n    \"orgId\" : \"$context.identity.apiKey\",\n    \"body\": {\n   \"metricName\" : \"$input.params('metricName')\"\n}\n}\n"
+      },
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaMetricRead.function.name}}/invocations",
+      "passthroughBehavior": "never",
+      "responses": {
+        "default": {
+          "statusCode": "200"
+        },
+          {{std_error_mappings}}
+      },
+      "httpMethod": "POST",
+      "type": "aws"
+    }
+  },
+  "patch": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "in": "body",
+        "name": "UpdateMetric",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/UpdateMetric"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{inject_org_id_as_template}},
+      "credentials": "arn:aws:iam::766732214526:role/{{api.schema.credentials}}",
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaMetricUpdate.function.name}}/invocations",
+      "passthroughBehavior": "never",
+      "responses": {
+        "default": {
+          "statusCode": "200"
+        },
+          {{std_error_mappings}}
+      },
+      "httpMethod": "POST",
+      "type": "aws"
+    }
+  },
+  "delete": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "in": "body",
+        "name": "DeleteMetric",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/DeleteMetric"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{inject_org_id_as_template}},
+      "credentials": "arn:aws:iam::766732214526:role/{{api.schema.credentials}}",
+      "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:766732214526:function:{{lambda.SchemaMetricDelete.function.name}}/invocations",
+      "passthroughBehavior": "never",
+      "responses": {
+        "default": {
+          "statusCode": "200"
+        },
+          {{std_error_mappings}}
+      },
+      "httpMethod": "POST",
+      "type": "aws"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": [
+    "username"
+  ],
+  "properties": {
+    "username": {
+      "type": "string"
+    }
+  },
+  "description": "Make a request about/for a user"
+}

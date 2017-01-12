@@ -1,0 +1,4 @@
+"headers": {
+  "Access-Control-Allow-Origin": {
+  "type": "string"
+}

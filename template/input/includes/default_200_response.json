@@ -1,0 +1,6 @@
+"default": {
+  "statusCode": "200",
+  "responseParameters": {
+    "method.response.header.Access-Control-Allow-Origin": "'*'"
+  }
+}
