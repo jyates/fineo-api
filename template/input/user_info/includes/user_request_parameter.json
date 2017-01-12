@@ -1,0 +1,8 @@
+{
+  "in": "body",
+  "name": "UserRequest",
+  "required": true,
+  "schema": {
+    "$ref": "#/definitions/UserRequest"
+  }
+}

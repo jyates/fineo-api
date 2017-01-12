@@ -7,23 +7,28 @@ File.expand_path(File.join(__dir__, "..", "lib")).tap {|pwd|
 
 require 'ostruct'
 
-APIS = ["stream", "batch", "read", "schema", "schema_internal"]
+APIS = ["stream", "batch", "read", "schema", "schema_internal", "user_info"]
 
 API_GROUPS ={
   "ingest" => OpenStruct.new(title: "fineo-ingest",
                              version: "v1",
                              host: "ingest.fineo.io",
                              req: ["stream", "batch"]),
-  "schema" => OpenStruct.new(title: "fineo-ingest",
+  "schema" => OpenStruct.new(title: "fineo-schema",
                              version: "v1",
                              host: "schema.fineo.io",
-                             req: ["schema"])
+                             req: ["schema"]),
+  "meta" => OpenStruct.new(title: "fineo-meta",
+                             version: "v1",
+                             host: "meta.fineo.io",
+                             req: ["user_info"])
 }
 
 # Apis that should not be present in the external swagger docs
 EXTERNAL_EXCLUDES = [
   "read",
-  "schema-internal"
+  "schema-internal",
+  "schema_internal"
 ]
 
 require 'deep_merge'

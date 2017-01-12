@@ -47,6 +47,15 @@ module Templating
         options[:schema_internal] = stream
       end
 
+      opts.on("--user-info props,overrides", Array, "Comma separated properties/overrides "+
+        "for the user info api") do |stream|
+        options[:user_info] = stream
+      end
+
+      opts.on("--user_info props,overrides", Array, "Alternative name for user-info group properties") do |stream|
+        options[:user_info] = stream
+      end
+
       opts.on("--external", "Publish the external API. Uses the above provided properties") do |e|
         options[:external] = true
       end
@@ -88,7 +97,7 @@ module Templating
 
   # Template a single API
   # * *Returns* :
-  #   - assignments generate from loading this api
+  #   - assignments generated from loading this api
   def template_api(name, root, options)
     return {} if options[name].nil?
     assigns = get_assigns(options[name])

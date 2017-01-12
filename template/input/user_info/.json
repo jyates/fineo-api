@@ -1,0 +1,128 @@
+{
+  //READ Tenant
+  "get": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{allow_origin_header}},
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{user_info_credentials}},
+      "requestTemplates": {
+        "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"read\" :{}\n    }"
+      },
+      {{tenant_crud_innvocation}},
+      {{never_passthrough}},
+      "responses": {
+        {{default_200_response}},
+        {{std_error_mappings}}
+      },
+      {{post_text_aws_integration}}
+    }
+  },
+  // CREATE Tenant
+  "put": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{allow_origin_header}},
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{user_info_credentials}},
+      "requestTemplates": {
+        "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"create\":{}\n}"
+      },
+      {{tenant_crud_innvocation}},
+      {{never_passthrough}},
+        "responses": {
+          {{default_200_response}},
+          {{std_error_mappings}}
+      },
+      {{post_text_aws_integration}}
+    }
+  },
+  // UPDATE Tenant
+  "patch": {
+      "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "in": "body",
+        "name": "UpdateTenant",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/UpdateTenant"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{allow_origin_header}},
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{user_info_credentials}},
+      "requestTemplates": {
+        "application/json": "{\n    \"apiKey\" : \"$context.identity.apiKey\",\n\"update\":$input.json('$')\n}"
+      },
+      {{tenant_crud_innvocation}},
+      {{never_passthrough}},
+      "responses": {
+        {{default_200_response}},
+        {{std_error_mappings}}
+      },
+      {{post_text_aws_integration}}
+    }
+  },
+  // Delete Tenant
+  "delete": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{allow_origin_header}},
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{user_info_credentials}},
+      "requestTemplates": {
+        "application/json": "{\n \"apiKey\" : \"$context.identity.apiKey\",\n \"delete\":{}\n}"
+      },
+      {{tenant_crud_innvocation}},
+      {{never_passthrough}},
+      "responses": {
+        {{default_200_response}},
+        {{std_error_mappings}}
+      },
+      {{post_text_aws_integration}}
+    }
+  },
+// Only allow website access for GET (read) and Update
+  {{cors_get-patch}}
+}

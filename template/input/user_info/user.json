@@ -1,0 +1,131 @@
+{
+  // READ User information
+  "get": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+      "name": "username",
+      "in": "path",
+      "required": true,
+      "type": "string"
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{allow_origin_header}},
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      "credentials": "arn:aws:iam::766732214526:role/{{api.user_info.credentials}}",
+      "requestTemplates": {
+        "application/json": "{\n    \"apiKey\" : \"$context.identity.apiKey\",\n    \"userName\" : \"$input.params('username')\",\n    \"read\" :{}\n    }"
+      },
+      {{user_crud_innvocation}},
+      "passthroughBehavior": "never",
+      "responses": {
+        {{default_200_response}},
+        {{std_error_mappings}}
+      },
+      "httpMethod": "POST",
+      "contentHandling": "CONVERT_TO_TEXT",
+      "type": "aws"
+    }
+  },
+  // CREATE User
+  "put": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {{user_request_parameter}}
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{allow_origin_header}},
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{user_info_credentials}},
+      "requestTemplates": {
+        "application/json": "{\n \"apiKey\" : \"$context.identity.apiKey\",\n \"create\": $input.json('$')\n}"
+    },
+    {{tenant_crud_innvocation}},
+    {{never_passthrough}},
+    "responses": {
+      {{default_200_response}},
+      {{std_error_mappings}}
+    },
+    {{post_text_aws_integration}}
+    }
+  },
+// UPDATE User... does nothing right now
+  "patch": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {{user_request_parameter}}
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{allow_origin_header}},
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{user_info_credentials}},
+      "requestTemplates": {
+        "application/json": "{\n    \"apiKey\" : \"$context.identity.apiKey\",\n\"update\": $input.json('$')\n}"
+      },
+      {{tenant_crud_innvocation}},
+      {{never_passthrough}},
+      "responses": {
+        {{default_200_response}},
+        {{std_error_mappings}}
+      },
+      {{post_text_aws_integration}}
+    }
+  },
+// Delete User
+  "delete": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {{user_request_parameter}}
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{allow_origin_header}},
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{user_info_credentials}},
+      "requestTemplates": {
+        "application/json": "{\n \"apiKey\" : \"$context.identity.apiKey\",\n \"delete\": $input.json('$')\n}"
+    },
+    {{tenant_crud_innvocation}},
+    {{never_passthrough}},
+    "responses": {
+      {{default_200_response}},
+      {{std_error_mappings}}
+    },
+    {{post_text_aws_integration}}
+    }
+  },
+// Allow web app to access all user information
+  {{cors_post-get-patch-delete}}
+}
