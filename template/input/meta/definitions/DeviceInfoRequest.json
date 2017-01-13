@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "required": [
+    "deviceId",
+    "description"
+  ],
+  "properties": {
+    "deviceId": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "description": "Make a request for device information"
+}

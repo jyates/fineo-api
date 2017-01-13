@@ -1,0 +1,16 @@
+{
+  //LIST all devices
+  "get": {
+    // no input needed
+    {{produce-consume-json_standard-responses_iam}},
+    "x-amazon-apigateway-integration": {
+      {{meta_credentials}},
+      "requestTemplates": {
+        "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"list\" :{}\n    }"
+      },
+      {{device-innvocation_mapping}}
+    }
+  },
+// Only allow website access for GET (list)
+{{cors_get-patch}}
+}

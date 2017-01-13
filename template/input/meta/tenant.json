@@ -3,7 +3,7 @@
   "get": {
     {{produce-consume-json_standard-responses_iam}},
     "x-amazon-apigateway-integration": {
-      {{user_info_credentials}},
+      {{meta_credentials}},
       "requestTemplates": {
         "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"read\" :{}\n    }"
       },
@@ -20,7 +20,7 @@
   "put": {
     {{produce-consume-json_standard-responses_iam}},
     "x-amazon-apigateway-integration": {
-      {{user_info_credentials}},
+      {{meta_credentials}},
       "requestTemplates": {
         "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"create\":{}\n}"
       },
@@ -57,9 +57,9 @@
     {{allow_origin_header}},
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      {{user_info_credentials}},
+      {{meta_credentials}},
       "requestTemplates": {
-        "application/json": "{\n    \"apiKey\" : \"$context.identity.apiKey\",\n\"update\":$input.json('$')\n}"
+        "application/json": "{\n    \"apiKey\" : \"$context.identity.apiKey\",\n\"update\": $input.json('$')\n}"
       },
       {{tenant_crud_innvocation}},
       {{never_passthrough}},
@@ -74,7 +74,7 @@
   "delete": {
     {{produce-consume-json_standard-responses_iam}},
     "x-amazon-apigateway-integration": {
-      {{user_info_credentials}},
+      {{meta_credentials}},
       "requestTemplates": {
         "application/json": "{\n \"apiKey\" : \"$context.identity.apiKey\",\n \"delete\":{}\n}"
       },

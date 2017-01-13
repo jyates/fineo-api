@@ -53,7 +53,7 @@
     {{allow_origin_header}},
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      {{user_info_credentials}},
+      {{meta_credentials}},
       "requestTemplates": {
         "application/json": "{\n \"apiKey\" : \"$context.identity.apiKey\",\n \"create\": $input.json('$')\n}"
     },
@@ -83,7 +83,7 @@
     {{allow_origin_header}},
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      {{user_info_credentials}},
+      {{meta_credentials}},
       "requestTemplates": {
         "application/json": "{\n    \"apiKey\" : \"$context.identity.apiKey\",\n\"update\": $input.json('$')\n}"
       },
@@ -113,7 +113,7 @@
     {{allow_origin_header}},
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
-      {{user_info_credentials}},
+      {{meta_credentials}},
       "requestTemplates": {
         "application/json": "{\n \"apiKey\" : \"$context.identity.apiKey\",\n \"delete\": $input.json('$')\n}"
     },
@@ -127,5 +127,5 @@
     }
   },
 // Allow web app to access all user information
-  {{cors_post-get-patch-delete}}
+  {{cors_put-get-patch-delete}}
 }

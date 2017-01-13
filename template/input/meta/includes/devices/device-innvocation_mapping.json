@@ -1,0 +1,7 @@
+{{device_crud_innvocation}},
+{{never_passthrough}},
+"responses": {
+  {{default_200_response}},
+  {{std_error_mappings}}
+},
+{{post_text_aws_integration}}

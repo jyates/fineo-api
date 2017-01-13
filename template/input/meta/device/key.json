@@ -1,0 +1,59 @@
+{
+  //LIST all the keys
+  "get": {
+    // no input needed
+    {{produce-consume-json_standard-responses_iam}},
+    "x-amazon-apigateway-integration": {
+      {{meta_credentials}},
+      "requestTemplates": {
+        "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"list\" :{}\n    }"
+      },
+      {{key-innvocation_mapping}}
+  }
+  },
+  //CREATE a key
+  "put": {
+    // returns key information, so no parameters needed
+    {{produce-consume-json_standard-responses_iam}},
+    "x-amazon-apigateway-integration": {
+      {{meta_credentials}},
+      "requestTemplates": {
+        "application/json" : "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"create\" : {}\n}"
+      },
+      {{key-innvocation_mapping}}
+    }
+  },
+  // Delete a key
+  "delete": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "in": "body",
+        "name": "KeyInfo",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/KeyRequest"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{allow_origin_header}},
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{meta_credentials}},
+      "requestTemplates": {
+        "application/json" : "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"delete\" : $input.json('$')\n}"
+      },
+      {{key-innvocation_mapping}}
+    }
+  },
+// Allow website access to everything
+{{cors_put-get-delete}}
+}

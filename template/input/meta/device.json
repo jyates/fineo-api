@@ -1,0 +1,107 @@
+{
+  //READ a single device info
+  "get": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+      "name": "deviceId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{allow_origin_header}},
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{meta_credentials}},
+      "requestTemplates": {
+        "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"read\" : {\n \"deviceId\" : \"$input.params('deviceId')\"\n}"
+      },
+      {{device-innvocation_mapping}}
+    }
+  },
+  //CREATE a device
+  "put": {
+    // returns a new device id, so no parameters needed
+    {{produce-consume-json_standard-responses_iam}},
+    "x-amazon-apigateway-integration": {
+      {{meta_credentials}},
+      "requestTemplates": {
+        "application/json" : "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"create\" : {}\n}"
+      },
+      {{device-innvocation_mapping}}
+    }
+  },
+  // UPDATE a device
+  "patch": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "in": "body",
+        "name": "DeviceInfo",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/DeviceInfoRequest"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{allow_origin_header}},
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{meta_credentials}},
+      "requestTemplates": {
+        "application/json" : "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"update\" : $input.json('$')\n}"
+      },
+      {{device-innvocation_mapping}}
+    }
+  },
+    // Delete a device
+  "delete": {
+    "tags": [
+      "{{ parent }}"
+    ],
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "in": "body",
+        "name": "DeviceInfo",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/DeviceRequest"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{allow_origin_header}},
+    {{security_key_iam}},
+    "x-amazon-apigateway-integration": {
+      {{meta_credentials}},
+      "requestTemplates": {
+        "application/json" : "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"delete\" : $input.json('$')\n}"
+      },
+      {{device-innvocation_mapping}}
+    }
+  },
+// Allow website access to everything
+{{cors_put-get-patch-delete}}
+}

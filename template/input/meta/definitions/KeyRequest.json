@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": [
+    "keyId"
+  ],
+  "properties": {
+    "keyId": {
+      "type": "string"
+    }
+  },
+  "description": "Make a request about/for a key"
+}

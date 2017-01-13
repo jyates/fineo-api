@@ -47,13 +47,9 @@ module Templating
         options[:schema_internal] = stream
       end
 
-      opts.on("--user-info props,overrides", Array, "Comma separated properties/overrides "+
-        "for the user info api") do |stream|
-        options[:user_info] = stream
-      end
-
-      opts.on("--user_info props,overrides", Array, "Alternative name for user-info group properties") do |stream|
-        options[:user_info] = stream
+      opts.on("--meta props,overrides", Array, "Comma separated properties/overrides "+
+        "for the metadata api") do |stream|
+        options[:meta] = stream
       end
 
       opts.on("--external", "Publish the external API. Uses the above provided properties") do |e|
