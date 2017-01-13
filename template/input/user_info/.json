@@ -1,19 +1,7 @@
 {
   //READ Tenant
   "get": {
-    "tags": [
-      "{{ parent }}"
-    ],
-    {{consume_json}},
-    {{produce_json}},
-    "parameters": [
-    ],
-    "responses": {
-      {{Success_200}},
-      {{std_error_responses}}
-    },
-    {{allow_origin_header}},
-    {{security_key_iam}},
+    {{produce-consume-json_standard-responses_iam}},
     "x-amazon-apigateway-integration": {
       {{user_info_credentials}},
       "requestTemplates": {
@@ -30,19 +18,7 @@
   },
   // CREATE Tenant
   "put": {
-    "tags": [
-      "{{ parent }}"
-    ],
-    {{consume_json}},
-    {{produce_json}},
-    "parameters": [
-    ],
-    "responses": {
-      {{Success_200}},
-      {{std_error_responses}}
-    },
-    {{allow_origin_header}},
-    {{security_key_iam}},
+    {{produce-consume-json_standard-responses_iam}},
     "x-amazon-apigateway-integration": {
       {{user_info_credentials}},
       "requestTemplates": {
@@ -96,19 +72,7 @@
   },
   // Delete Tenant
   "delete": {
-    "tags": [
-      "{{ parent }}"
-    ],
-    {{consume_json}},
-    {{produce_json}},
-    "parameters": [
-    ],
-    "responses": {
-      {{Success_200}},
-      {{std_error_responses}}
-    },
-    {{allow_origin_header}},
-    {{security_key_iam}},
+    {{produce-consume-json_standard-responses_iam}},
     "x-amazon-apigateway-integration": {
       {{user_info_credentials}},
       "requestTemplates": {
