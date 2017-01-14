@@ -46,5 +46,6 @@
     },
     {{security_key_iam}},
     {{update_field_integration}}
-  }
+  },
+{{cors_post-get-patch}}
 }

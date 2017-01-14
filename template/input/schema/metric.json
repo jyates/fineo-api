@@ -62,5 +62,6 @@
     },
     {{security_key_iam}},
     {{delete_metric_integration}}
-  }
+  },
+{{cors_post-get-patch-delete}}
 }

@@ -13,5 +13,6 @@
     },
     {{security_key_iam}},
     {{get_metrics_integration}}
-    }
+  },
+{{cors_get}}
 }

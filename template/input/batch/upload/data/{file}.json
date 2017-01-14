@@ -18,5 +18,6 @@
     },
     {{security_key_iam}},
     {{upload_data_integration}}
-  }
+  },
+{{cors_put}}
 }

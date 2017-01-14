@@ -13,5 +13,6 @@
     {{get_file_status_responses}},
     {{security_key_iam}},
     {{get_file_status_integration}}
-  }
+  },
+{{cors_status}}
 }

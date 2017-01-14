@@ -29,5 +29,6 @@
     },
     {{security_key_iam}},
     {{update_schema_integration}}
-  }
+  },
+{{cors_get-patch}}
 }
