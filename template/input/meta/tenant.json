@@ -16,23 +16,6 @@
       {{post_text_aws_integration}}
     }
   },
-  // CREATE Tenant
-  "put": {
-    {{produce-consume-json_standard-responses_iam}},
-    "x-amazon-apigateway-integration": {
-      {{meta_credentials}},
-      "requestTemplates": {
-        "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"create\":{}\n}"
-      },
-      {{tenant_crud_innvocation}},
-      {{never_passthrough}},
-        "responses": {
-          {{default_200_response}},
-          {{std_error_mappings}}
-      },
-      {{post_text_aws_integration}}
-    }
-  },
   // UPDATE Tenant
   "patch": {
       "tags": [
@@ -60,23 +43,6 @@
       {{meta_credentials}},
       "requestTemplates": {
         "application/json": "{\n    \"apiKey\" : \"$context.identity.apiKey\",\n\"update\": $input.json('$')\n}"
-      },
-      {{tenant_crud_innvocation}},
-      {{never_passthrough}},
-      "responses": {
-        {{default_200_response}},
-        {{std_error_mappings}}
-      },
-      {{post_text_aws_integration}}
-    }
-  },
-  // Delete Tenant
-  "delete": {
-    {{produce-consume-json_standard-responses_iam}},
-    "x-amazon-apigateway-integration": {
-      {{meta_credentials}},
-      "requestTemplates": {
-        "application/json": "{\n \"apiKey\" : \"$context.identity.apiKey\",\n \"delete\":{}\n}"
       },
       {{tenant_crud_innvocation}},
       {{never_passthrough}},
