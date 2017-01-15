@@ -16,7 +16,7 @@
     ],
     "responses": {
       {{Success_200}},
-      {{std_error_responses}}
+      {{std_error_responses-with-cors}}
     },
     {{allow_origin_header}},
     {{security_key_iam}},
@@ -29,7 +29,7 @@
       "passthroughBehavior": "never",
       "responses": {
         {{default_200_response}},
-        {{std_error_mappings-with-cors}}
+        {{std_error_mappings}}
       },
       "httpMethod": "POST",
       "contentHandling": "CONVERT_TO_TEXT",
@@ -48,7 +48,7 @@
     ],
     "responses": {
       {{Success_200}},
-      {{std_error_responses}}
+      {{std_error_responses-with-cors}}
     },
     {{allow_origin_header}},
     {{security_key_iam}},
@@ -61,7 +61,7 @@
     {{never_passthrough}},
     "responses": {
       {{default_200_response}},
-      {{std_error_mappings-with-cors}}
+      {{std_error_mappings}}
     },
     {{post_text_aws_integration}}
     }
@@ -78,7 +78,7 @@
     ],
     "responses": {
       {{Success_200}},
-      {{std_error_responses}}
+      {{std_error_responses-with-cors}}
     },
     {{allow_origin_header}},
     {{security_key_iam}},
@@ -91,7 +91,7 @@
       {{never_passthrough}},
       "responses": {
         {{default_200_response}},
-        {{std_error_mappings-with-cors}}
+        {{std_error_mappings}}
       },
       {{post_text_aws_integration}}
     }
@@ -108,7 +108,7 @@
     ],
     "responses": {
       {{Success_200}},
-      {{std_error_responses}}
+      {{std_error_responses-with-cors}}
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
@@ -120,7 +120,7 @@
     {{never_passthrough}},
     "responses": {
       {{default_200_response}},
-      {{std_error_mappings-with-cors}}
+      {{std_error_mappings}}
     },
     {{post_text_aws_integration}}
     }
