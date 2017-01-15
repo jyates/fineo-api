@@ -37,7 +37,6 @@
       {{Success_200}},
       {{std_error_responses}}
     },
-    {{allow_origin_header}},
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {
       {{meta_credentials}},
