@@ -1,0 +1,36 @@
+    ".*httpStatus\\\":404.*": {
+      "statusCode": "404",
+      "responseTemplates": {
+        "application/json": "#set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')))\n#set ($bodyObj = $util.parseJson($input.body))\n{\n  \"type\" : \"$errorMessageObj.errorType\",\n  \"message\" : \"$errorMessageObj.message\",\n  \"request-id\" : \"$errorMessageObj.requestId\"\n}"
+      },
+      "responseParameters": {
+        "method.response.header.Access-Control-Allow-Origin": "'*'"
+      }
+    },
+    ".*httpStatus\\\":403.*": {
+      "statusCode": "403",
+      "responseTemplates": {
+        "application/json": "#set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')))\n#set ($bodyObj = $util.parseJson($input.body))\n{\n  \"type\" : \"$errorMessageObj.errorType\",\n  \"message\" : \"$errorMessageObj.message\",\n  \"request-id\" : \"$errorMessageObj.requestId\"\n}"
+      },
+      "responseParameters": {
+        "method.response.header.Access-Control-Allow-Origin": "'*'"
+      }
+    },
+    ".*httpStatus\\\":400.*": {
+      "statusCode": "400",
+      "responseTemplates": {
+        "application/json": "#set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')))\n#set ($bodyObj = $util.parseJson($input.body))\n{\n  \"type\" : \"$errorMessageObj.errorType\",\n  \"message\" : \"$errorMessageObj.message\",\n  \"request-id\" : \"$errorMessageObj.requestId\"\n}"
+      },
+      "responseParameters": {
+        "method.response.header.Access-Control-Allow-Origin": "'*'"
+      }
+    },
+    ".*httpStatus\\\":500.*": {
+      "statusCode": "500",
+      "responseTemplates": {
+        "application/json": "#set ($errorMessageObj = $util.parseJson($input.path('$.errorMessage')))\n#set ($bodyObj = $util.parseJson($input.body))\n{\n  \"type\" : \"$errorMessageObj.errorType\",\n  \"message\" : \"$errorMessageObj.message\",\n  \"request-id\" : \"$errorMessageObj.requestId\"\n}"
+      },
+      "responseParameters": {
+        "method.response.header.Access-Control-Allow-Origin": "'*'"
+      }
+    }

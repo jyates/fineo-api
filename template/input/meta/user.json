@@ -29,7 +29,7 @@
       "passthroughBehavior": "never",
       "responses": {
         {{default_200_response}},
-        {{std_error_mappings}}
+        {{std_error_mappings-with-cors}}
       },
       "httpMethod": "POST",
       "contentHandling": "CONVERT_TO_TEXT",
@@ -61,7 +61,7 @@
     {{never_passthrough}},
     "responses": {
       {{default_200_response}},
-      {{std_error_mappings}}
+      {{std_error_mappings-with-cors}}
     },
     {{post_text_aws_integration}}
     }
@@ -91,7 +91,7 @@
       {{never_passthrough}},
       "responses": {
         {{default_200_response}},
-        {{std_error_mappings}}
+        {{std_error_mappings-with-cors}}
       },
       {{post_text_aws_integration}}
     }
@@ -120,7 +120,7 @@
     {{never_passthrough}},
     "responses": {
       {{default_200_response}},
-      {{std_error_mappings}}
+      {{std_error_mappings-with-cors}}
     },
     {{post_text_aws_integration}}
     }
