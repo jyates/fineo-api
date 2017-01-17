@@ -19,7 +19,9 @@
       {{std_error_responses}}
     },
     {{allow_origin_header}},
-    {{security_key_iam}},
+    // get looks up the users's api key, so we can't supply an API key for this
+    // however, we can still enforce that the request is signed with credentials
+    {{security_key_iam-no-api-key}},
     "x-amazon-apigateway-integration": {
       {{meta_credentials}},
       "requestTemplates": {
