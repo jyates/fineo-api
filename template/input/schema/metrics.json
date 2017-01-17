@@ -6,7 +6,13 @@
     "parameters": [
     ],
     "responses": {
-      {{Success_200}},
+      "200": {
+        "description": "200 response",
+        "schema": {
+          "$ref": "#/definitions/GetMetricsResponse"
+        },
+        {{allow_origin_header}}
+      },
       {{std_error_responses}}
     },
     {{security_key_iam}},

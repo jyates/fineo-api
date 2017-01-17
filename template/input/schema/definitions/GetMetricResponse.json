@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "required": [
+    "name",
+    "aliases",
+    "timestampPatterns",
+    "fields"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "User name for the field"
+    },
+    "fields":{
+      "$ref": "#/definitions/fieldInfoArray"
+    },
+    "aliases":{
+      "$ref": "#/definitions/aliasArray"
+    },
+    "timestampPatterns":{
+      "$ref": "#/definitions/aliasArray"
+    }
+  },
+  "description": "Map of metric ids to metric names"
+}

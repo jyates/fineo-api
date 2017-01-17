@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": [
+    "metricmap"
+  ],
+  "properties": {
+    "metricmap": {
+      "$ref": "#/definitions/stringMap"
+    }
+  },
+  "description": "Map of metric ids to metric names"
+}

@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "required": [
+    "timestampPatterns",
+    "metricKeys"
+  ],
+  "properties": {
+    "timestampPatterns":{
+      "$ref": "#/definitions/aliasArray"
+    },
+    "metricKeys":{
+      "$ref": "#/definitions/aliasArray"
+    }
+  },
+  "description": "Information metric/schema processing"
+}

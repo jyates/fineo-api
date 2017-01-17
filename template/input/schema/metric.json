@@ -21,7 +21,13 @@
       {{get_metric_parameter}}
     ],
     "responses": {
-      {{Success_200}},
+      "200":{
+        "description": "200 response",
+        "schema": {
+          "$ref": "#/definitions/GetMetricResponse"
+        },
+        {{allow_origin_header}}
+      },
       {{std_error_responses}}
     },
     {{security_key_iam}},

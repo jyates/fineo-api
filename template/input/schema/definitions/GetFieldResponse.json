@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "required": [
+    "name",
+    "aliases",
+    "type"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "User name for the field"
+    },
+    "type": {
+      "type": "string",
+      "description": "Standard SQL type for the field. See documentation for valid types."
+    },
+    "aliases":{
+      "$ref": "#/definitions/aliasArray"
+    }
+  },
+  "description": "Information about a field in a metric"
+}
