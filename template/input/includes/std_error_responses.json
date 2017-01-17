@@ -2,23 +2,43 @@
   "description": "400 response",
   "schema": {
     "$ref": "#/definitions/Error"
+  },
+  "headers": {
+    "Access-Control-Allow-Origin": {
+      "type": "string"
+    }
   }
 },
 "403": {
   "description": "403 response",
   "schema": {
     "$ref": "#/definitions/Error"
+  },
+  "headers": {
+    "Access-Control-Allow-Origin": {
+      "type": "string"
+    }
   }
 },
 "404": {
   "description": "404 response",
   "schema": {
     "$ref": "#/definitions/Error"
+  },
+  "headers": {
+    "Access-Control-Allow-Origin": {
+      "type": "string"
+    }
   }
 },
 "500": {
   "description": "500 response",
   "schema": {
     "$ref": "#/definitions/Error"
+  },
+  "headers": {
+    "Access-Control-Allow-Origin": {
+      "type": "string"
+    }
   }
 }

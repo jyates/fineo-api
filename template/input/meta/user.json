@@ -16,7 +16,7 @@
     ],
     "responses": {
       {{Success_200}},
-      {{std_error_responses-with-cors}}
+      {{std_error_responses}}
     },
     {{allow_origin_header}},
     {{security_key_iam}},
@@ -48,7 +48,7 @@
     ],
     "responses": {
       {{Success_200}},
-      {{std_error_responses-with-cors}}
+      {{std_error_responses}}
     },
     {{allow_origin_header}},
     {{security_key_iam}},
@@ -78,7 +78,7 @@
     ],
     "responses": {
       {{Success_200}},
-      {{std_error_responses-with-cors}}
+      {{std_error_responses}}
     },
     {{allow_origin_header}},
     {{security_key_iam}},
@@ -108,7 +108,7 @@
     ],
     "responses": {
       {{Success_200}},
-      {{std_error_responses-with-cors}}
+      {{std_error_responses}}
     },
     {{security_key_iam}},
     "x-amazon-apigateway-integration": {

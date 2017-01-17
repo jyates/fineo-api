@@ -1,8 +1,6 @@
 {
   "get": {
-    "tags": [
-      "{{ parent }}"
-    ],
+    {{parent_tag}},
     {{consume_json}},
     {{produce_json}},
     "parameters": [

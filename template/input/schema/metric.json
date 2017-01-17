@@ -1,8 +1,6 @@
 {
   "post": {
-    "tags": [
-      "{{ parent }}"
-    ],
+    {{parent_tag}},
     {{consume_json}},
     {{produce_json}},
     "parameters": [
@@ -16,9 +14,7 @@
     {{create_metric_integration}}
   },
   "get": {
-    "tags": [
-      "{{ parent }}"
-    ],
+    {{parent_tag}},
     {{consume_json}},
     {{produce_json}},
     "parameters": [
@@ -32,9 +28,7 @@
     {{get_metric_integration}}
   },
   "patch": {
-    "tags": [
-      "{{ parent }}"
-    ],
+    {{parent_tag}},
     {{consume_json}},
     {{produce_json}},
     "parameters": [
@@ -48,9 +42,7 @@
     {{update_metric_integration}}
   },
   "delete": {
-    "tags": [
-      "{{ parent }}"
-    ],
+    {{parent_tag}},
     {{consume_json}},
     {{produce_json}},
     "parameters": [
