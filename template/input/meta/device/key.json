@@ -1,35 +1,65 @@
 {
-  //LIST all the keys
+  //LIST all the keys for a device
   "get": {
-    // no input needed
-    {{produce-consume-json_standard-responses_iam}},
+    {{parent_tag}},
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "name": "deviceId",
+        "in": "path",
+        "required": true,
+        "type": "string"
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{security_key_iam}},
     "x-amazon-apigateway-integration": {
       {{meta_credentials}},
       "requestTemplates": {
-        "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"list\" :{}\n    }"
+        "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",  \"list\":{\"id\" : \"$input.params('deviceId')\",\n}\n}"
       },
       {{key-innvocation_mapping}}
   }
   },
   //CREATE a key
   "put": {
-    // returns key information, so no parameters needed
-    {{produce-consume-json_standard-responses_iam}},
+    {{parent_tag}},
+    {{consume_json}},
+    {{produce_json}},
+    "parameters": [
+      {
+        "in": "body",
+        "name": "DeviceInfo",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/DeviceInfoRequest"
+        }
+      }
+    ],
+    "responses": {
+      {{Success_200}},
+      {{std_error_responses}}
+    },
+    {{allow_origin_header}},
+    {{security_key_iam}},
     "x-amazon-apigateway-integration": {
       {{meta_credentials}},
       "requestTemplates": {
-        "application/json" : "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"create\" : {}\n}"
+        "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",  \n  \"create\" : $input.json('$')\n}"
       },
       {{key-innvocation_mapping}}
     }
   },
   // Delete a key
   "delete": {
-    "tags": [
-      "{{ parent }}"
-    ],
+    {{parent_tag}},
     {{consume_json}},
     {{produce_json}},
+    // require both the device ID and the Key ID to delete
     "parameters": [
       {
         "in": "body",
@@ -49,7 +79,7 @@
     "x-amazon-apigateway-integration": {
       {{meta_credentials}},
       "requestTemplates": {
-        "application/json" : "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"delete\" : $input.json('$')\n}"
+        "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",  \n  \"delete\" : $input.json('$')\n}"
       },
       {{key-innvocation_mapping}}
     }
