@@ -7,7 +7,7 @@
     "parameters": [
       {
       "name": "deviceId",
-      "in": "path",
+      "in": "query",
       "required": true,
       "type": "string"
       }
