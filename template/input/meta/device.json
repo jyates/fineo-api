@@ -20,7 +20,7 @@
     "x-amazon-apigateway-integration": {
       {{meta_credentials}},
       "requestTemplates": {
-        "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"read\" : {\n \"deviceId\" : \"$input.params('deviceId')\"\n}"
+        "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"read\" :{\"deviceId\" : \"$input.params('deviceId')\"\n}\n}"
       },
       {{device-innvocation_mapping}}
     }
