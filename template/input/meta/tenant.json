@@ -1,34 +1,5 @@
 {
   //READ Tenant
-  "put": {
-    {{parent_tag}},
-    {{consume_json}},
-    {{produce_json}},
-    "parameters": [
-      {{user_request_parameter}}
-    ],
-    "responses": {
-      {{Success_200}},
-      {{std_error_responses}}
-    },
-    {{allow_origin_header}},
-    // creates the API Key for the user/tenant, so we can't pass one in.
-    {{security_key_iam-no-api-key}},
-    "x-amazon-apigateway-integration": {
-      {{meta_credentials}},
-      "requestTemplates": {
-        "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"create\": $input.json('$')\n}"
-      },
-      {{tenant_crud_innvocation}},
-      {{never_passthrough}},
-      "responses": {
-        {{default_200_response}},
-        {{std_error_mappings}}
-      },
-      {{post_text_aws_integration}}
-    }
-  },
-  //READ Tenant
   "get": {
     {{produce-consume-json_standard-responses_iam}},
     "x-amazon-apigateway-integration": {
@@ -36,7 +7,7 @@
       "requestTemplates": {
         "application/json": "{\n  \"apiKey\" : \"$context.identity.apiKey\",\n  \"read\" :{}\n    }"
       },
-      {{tenant_crud_innvocation}},
+      {{tenant_rud_innvocation}},
       {{never_passthrough}},
       "responses": {
         {{default_200_response}},
@@ -72,7 +43,7 @@
       "requestTemplates": {
         "application/json": "{\n    \"apiKey\" : \"$context.identity.apiKey\",\n\"update\": $input.json('$')\n}"
       },
-      {{tenant_crud_innvocation}},
+      {{tenant_rud_innvocation}},
       {{never_passthrough}},
       "responses": {
         {{default_200_response}},
