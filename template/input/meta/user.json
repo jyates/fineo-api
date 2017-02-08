@@ -59,7 +59,7 @@
       "requestTemplates": {
         "application/json": "{\n \"apiKey\" : \"$context.identity.apiKey\",\n \"create\": $input.json('$')\n}"
     },
-    {{tenant_crud_innvocation}},
+    {{user_crud_innvocation}},
     {{never_passthrough}},
     "responses": {
       {{default_200_response}},
@@ -89,7 +89,7 @@
       "requestTemplates": {
         "application/json": "{\n    \"apiKey\" : \"$context.identity.apiKey\",\n\"update\": $input.json('$')\n}"
       },
-      {{tenant_crud_innvocation}},
+      {{user_crud_innvocation}},
       {{never_passthrough}},
       "responses": {
         {{default_200_response}},
@@ -118,7 +118,7 @@
       "requestTemplates": {
         "application/json": "{\n \"apiKey\" : \"$context.identity.apiKey\",\n \"delete\": $input.json('$')\n}"
     },
-    {{tenant_crud_innvocation}},
+    {{user_crud_innvocation}},
     {{never_passthrough}},
     "responses": {
       {{default_200_response}},
