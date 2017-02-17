@@ -10,18 +10,10 @@ require 'ostruct'
 APIS = ["stream", "batch", "read", "schema", "schema_internal", "meta"]
 
 API_GROUPS ={
-  "ingest" => OpenStruct.new(title: "fineo-ingest",
+  "api" => OpenStruct.new(title: "fineo-api",
                              version: "v1",
-                             host: "ingest.fineo.io",
-                             req: ["stream", "batch"]),
-  "schema" => OpenStruct.new(title: "fineo-schema",
-                             version: "v1",
-                             host: "schema.fineo.io",
-                             req: ["schema"]),
-  "meta" => OpenStruct.new(title: "fineo-meta",
-                             version: "v1",
-                             host: "meta.fineo.io",
-                             req: ["meta"])
+                             host: "api.fineo.io",
+                             req: ["stream", "batch", "schema", "meta"])
 }
 
 # Apis that should not be present in the external swagger docs
