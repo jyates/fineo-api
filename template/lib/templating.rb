@@ -3,7 +3,6 @@ require 'ostruct'
 require 'json'
 require 'optparse'
 require 'liquid'
-require 'templater'
 require 'template_info'
 require 'templates'
 require 'deep_merge'
@@ -21,6 +20,11 @@ module Templating
         options[:output] = v
         #ensure the output directory exists
         FileUtils.mkdir_p v
+      end
+
+      opts.on("--conf DIR", "Directory where api configuration is stored. File names will be " +
+        "used as API names") do |dir|
+        options[:confs] = dir
       end
 
       opts.on("--stream props,overrides", Array, "Comma separated properties/overrides for the "+
@@ -67,43 +71,30 @@ module Templating
     end.parse!(args)
   end
 
-  def template_batch(name, root, assignments, templates, suffix, options)
-    input_dir = options[:input]
-    output = options[:output]
-
-    # load the assignments for the group
-    templates.each{|template|
-      assignments = assignments.deep_merge get_assigns(options[template.to_sym])
-    }
-    info = TemplateInfo.new(root, assignments, input_dir)
-
-    # convert the templates into their actual directories
-    dirs = []
-    Dir.glob(File.join(input_dir, "/*")).each{|dir|
-      next unless File.directory?(dir)
-
-      file_name = File.basename(dir)
-      next if file_name == Templates::INCLUDES || file_name == Templates::DEFINITIONS
-      next unless templates.include? file_name
-      dirs << dir
-    }
-
-    template_sources(info, name, output, dirs, suffix)
-  end
-
   # Template a single API
   # * *Returns* :
   #   - assignments generated from loading this api
   def template_api(name, root, options)
-    return {} if options[name].nil?
-    assigns = get_assigns(options[name])
-    require 'pp'
+    file = check_name(name, options)
+    return {} if file.nil?
+
+    puts "Templating internal apis: #{name} from #{file}" if options[:verbose]
+    assigns = get_assigns(file)
     info = TemplateInfo.new(root, assigns, options[:input])
     template(info, options[:output], name.to_s)
     assigns
   end
 
 private
+
+  def check_name(name, options)
+    if !options[:confs].nil?
+      # check to see if that name is present
+      file = File.join("#{options[:confs]}","#{name}.json")
+      return file if File.exist?(file)
+    end
+    return options[name]
+  end
 
   def get_assigns(props)
     case props
@@ -134,6 +125,6 @@ private
 
   def template_sources(info, name, output, dirs, suffix="swagger-integrations,authorizers.json")
     output = File.join(output, name)
-    Templater.new(info, dirs).template(name, output, suffix)
+    Templates::Templater.new(info, dirs).template(name, output, suffix)
   end
 end

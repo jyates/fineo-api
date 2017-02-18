@@ -1,9 +1,9 @@
 
 require 'liquid'
-require 'templates'
+require 'definitions'
 
 class DirBuilder
-  include Templates
+  include Definitions
 
   def initialize(dir)
     @dir = dir

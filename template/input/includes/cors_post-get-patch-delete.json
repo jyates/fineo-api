@@ -1,4 +1,7 @@
 "options": {
+  "tags": [
+    "{{ parent }}"
+  ],
   "consumes": [
     "application/json"
   ],

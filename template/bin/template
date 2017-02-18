@@ -10,10 +10,12 @@ require 'ostruct'
 APIS = ["stream", "batch", "read", "schema", "schema_internal", "meta"]
 
 API_GROUPS ={
-  "api" => OpenStruct.new(title: "fineo-api",
-                             version: "v1",
-                             host: "api.fineo.io",
-                             req: ["stream", "batch", "schema", "meta"])
+  "api" => {
+    "title" => "fineo-api",
+    "version" => "v1",
+    "host" => "api.fineo.io",
+    req: ["stream", "batch", "schema", "meta"]
+  }
 }
 
 # Apis that should not be present in the external swagger docs
@@ -35,22 +37,53 @@ parse(ARGV, options)
 root = File.join(options[:input], "root.json")
 
 # templating each api
-unless options[:external]
-  APIS.each{|api|
-    puts "Templating internal apis: #{api}" if options[:verbose]
-    template_api(api.to_sym, root, options)
-  }
-else
+APIS.each{|api|
+  template_api(api.to_sym, root, options)
+}
+
+# read back in the templates that we just templated, and combine them
+if options[:external]
   puts "Templating external apis..." if options[:verbose]
-  # only publish the externally visible APIs
-  APIS.keep_if{|name| !EXTERNAL_EXCLUDES.include? name}
-
-  # combined, for the documentation
-  # override the common properties to something that makes sense
-  API_GROUPS.each{|name, api|
-      assignments = {"api" => api}
-      template_batch(name, root, assignments, api.req, "swagger.json", options)
+  apis = {}
+  Dir[options[:output]+"/*swagger-integrations,authorizers.json"].each{|file|
+    name = File.basename(file).sub("-swagger-integrations,authorizers.json", "")
+    apis[name] = JSON.parse(File.read(file))
   }
+
+  # only publish the externally visible APIs
+  apis.keep_if{|name| !EXTERNAL_EXCLUDES.include? name}
+
+  puts " with apis: #{apis.keys}"
+
+  props = API_GROUPS
+  paths = {}
+  definitions = {}
+  version = props["api"].delete("version")
+
+  # OK, this gets a little bit weird. Because of the way API Gateway does mapping, we need to do
+  # a little readjustment of the path. Basically, we inject the version between the first part of
+  # the path and the remainder. For example:
+  #  version = v1
+  #  /batch/status/{file} => /batch/v1/status/{file}
+  apis.each{|name, api|
+    updated_paths = {}
+    api["paths"].each{|path, methods|
+      # options just for Web calls, not really for people
+      methods.delete "options"
+
+      # remove the AWS bit - that's 'private' laundry
+      methods.each{|method, integration|
+        integration.delete("x-amazon-apigateway-integration")
+      }
+      updated_paths[path.split("/").insert(2, "v1").join("/")] = methods
+    }
+    paths = paths.deep_merge(updated_paths)
+    definitions = definitions.deep_merge(api["definitions"])
+  }
+
+  props["paths"] = paths.map{|k,v| "#{k.to_json}:#{v.to_json}"}
+  props["definitions"] = definitions.map{|k,v| "#{k.to_json}:#{v.to_json}"}
+
+  # do the simple templating, we already have everything else we need loaded from the sources
+  Templates.write(Templates.template_file(root, props), File.join(options[:output], "api-swagger.json"))
 end
-
-

@@ -1,8 +1,8 @@
 
-require 'templates'
+require 'definitions'
 
 class TemplateInfo
-  include Templates
+  include Definitions
 
   attr_reader :input, :includes, :definitions, :assigned, :root
 

@@ -37,5 +37,4 @@
   "definitions": {
     {{ definitions | join: "    ," }}
   }
-// done
 }
