@@ -15,5 +15,5 @@
     {{security_key_iam}},
     {{multi_event_mapping}}
   },
-{{cors_put}}
+{{cors_put-get-patch-delete}}
 }
