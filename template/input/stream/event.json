@@ -14,5 +14,6 @@
     },
     {{security_key_iam}},
     {{single_event_mapping}}
-  }
+  },
+{{cors_put}}
 }
