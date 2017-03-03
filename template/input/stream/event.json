@@ -15,5 +15,7 @@
     {{security_key_iam}},
     {{single_event_mapping}}
   },
+// start cors
 {{cors_put}}
+// end cors
 }

@@ -2,5 +2,10 @@
   "description": "Successful update. Still need to check that there were no errors.",
   "schema": {
     "$ref": "#/definitions/StreamEventsResponse"
+  },
+  "headers": {
+    "Access-Control-Allow-Origin": {
+      "type": "string"
+    }
   }
 }

@@ -4,11 +4,15 @@
   "passthroughBehavior": "never",
   "responses": {
     "4\\d{2}": {
-      "statusCode": "404"
+      "statusCode": "404",
+      "responseParameters": {
+        "method.response.header.Access-Control-Allow-Origin": "'*'"
+      }
     },
     "default": {
       "statusCode": "200",
       "responseParameters": {
+        "method.response.header.Access-Control-Allow-Origin": "'*'",
         "method.response.header.Content-Type": "integration.response.header.Content-Type",
         "method.response.header.Timestamp": "integration.response.header.Date"
       }
