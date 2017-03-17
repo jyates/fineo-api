@@ -10,10 +10,21 @@
       },
       "Content-Type": {
         "type": "string"
+      },
+      "Access-Control-Allow-Origin": {
+        "type": "string"
       }
     }
   },
   "404": {
-    "description": "404 response"
+    "description": "404 response",
+    "headers": {
+      "Access-Control-Allow-Origin": {
+        "type": "string"
+      }
+    },
+    "schema": {
+      "$ref": "#/definitions/Error"
+    }
   }
 }
