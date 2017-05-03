@@ -1,4 +1,46 @@
 # API
+Templating tools for generating the Fineo API
+
+## Certficates
+
+the `api.fineo.io` SSL certificate is managed by Let's Encrypt. To update the certificate, start by requesting a new one:
+
+```
+$ sudo certbot certonly --manual -d api.fineo.io
+```
+
+The process will then ask you to ensure that an endpoint matches a value. Some like:
+
+```
+Make sure your web server displays the following content at
+http://api.fineo.io/.well-known/acme-challenge/GLlI9kSJiH7mM5ay-CTL0xRng5IK9_20vGgy_sjI3DU before continuing:
+
+GLlI9kSJiH7mM5ay-CTL0xRng5IK9_20vGgy_sjI3DU.ZiFMKNhK_iyLdSdCd0gVBAeiNjRDf47zYCWJaWeojo0
+```
+
+Now, go to [https://console.aws.amazon.com/apigateway/home?region=us-east-1#/apis/wjniw7tj19/stages/handle] and set the `acme` stage variable to the content to display.
+
+Hit `Enter` on the terminal running the Let's Encrypt update and ensure it completes successfully. Now, you need to add the certificate to AWS.
+
+Navigate to [https://console.aws.amazon.com/acm], select api.fineo.io and 'Reimport Certificate'. Enter the body:
+
+```
+$ sudo cat /etc/letsencrypt/live/api.fineo.io/cert.pem
+```
+
+the private key:
+
+```
+$ sudo cat /etc/letsencrypt/live/api.fineo.io/privkey.pem 
+```
+
+and the full certificate chain:
+
+```
+$ sudo cat /etc/letsencrypt/live/api.fineo.io/fullchain.pem
+```
+
+into the respective fields.
 
 ## Templating
 
@@ -44,8 +86,6 @@ acts as part of the api path.
 For instance, ```stream/event.json``` defines the path ```[/event]``` under the ```stream``` api.
  Each json file is templated with [Liquid] where includes/defintions JSON file is a fully formed 
  elements you can reference by name, e.g. Error_400.json would be referenced by ```{{Error_400}}```. 
- 
-### Excluded  
  
 
 [Liquid]: https://shopify.github.io/liquid/
